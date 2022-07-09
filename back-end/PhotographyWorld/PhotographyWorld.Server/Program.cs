@@ -1,3 +1,5 @@
+using PhotographyWorld.Data.ConfigurationModels;
+
 var builder = WebApplication.CreateBuilder(args);
 
 const string AllowedSpecificOrigins = "AllowedPolicies";
@@ -5,6 +7,13 @@ const string AllowedSpecificOrigins = "AllowedPolicies";
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+CloudinaryConfigurationModel cloudinaryConfiguration = builder
+                .Configuration
+                .GetSection("CloudinaryConfiguration")
+                .Get<CloudinaryConfigurationModel>();
+
+builder.Services.AddSingleton(cloudinaryConfiguration);
 
 builder.Services.AddCors(options =>
 {
