@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using PhotographyWorld.Data;
 using PhotographyWorld.Data.ConfigurationModels;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,12 @@ CloudinaryConfigurationModel cloudinaryConfiguration = builder
                 .Configuration
                 .GetSection("CloudinaryConfiguration")
                 .Get<CloudinaryConfigurationModel>();
+
+builder.Services.AddDbContext<GalleryDbContext>(options =>
+{
+    string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(connectionString);
+});
 
 builder.Services.AddSingleton(cloudinaryConfiguration);
 
