@@ -22,5 +22,10 @@ namespace PhotographyWorld.Services
         {
             return db.Pictures.ToList();
         }
+
+        public Picture GetById(string pictureId)
+        {
+            return db.Pictures.FirstOrDefault(p => p.Id == pictureId);
+        }
     }
 }

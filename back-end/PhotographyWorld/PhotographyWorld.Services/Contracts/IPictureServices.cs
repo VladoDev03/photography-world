@@ -10,5 +10,7 @@ namespace PhotographyWorld.Services.Contracts
     public interface IPictureServices
     {
         List<Picture> GetAll();
+
+        Picture GetById(string pictureId);
     }
 }
