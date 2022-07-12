@@ -27,6 +27,7 @@ builder.Services.AddDbContext<GalleryDbContext>(options =>
 builder.Services.AddSingleton(cloudinaryConfiguration);
 builder.Services.AddScoped<IPictureServices, PictureServices>();
 builder.Services.AddScoped<ICloudinaryServices, CloudinaryServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
 
 builder.Services.AddCors(options =>
 {

@@ -1,0 +1,63 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using PhotographyWorld.Data.Entities;
+using PhotographyWorld.Server.BindingModels;
+using PhotographyWorld.Services.Contracts;
+using PhotographyWorld.Services.Models;
+
+namespace PhotographyWorld.Server.Controllers
+{
+    [ApiController]
+    [Route("api")]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserServices userServices;
+        private readonly IConfiguration configuration;
+
+        public UserController(
+            IUserServices userServices,
+            IConfiguration configuration)
+        {
+            this.userServices = userServices;
+            this.configuration = configuration;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterUserBindingModel request)
+        {
+            User newUser = new User();
+
+            PasswordServiceModel password = userServices.CreatePasswordHash(request.Password);
+
+            newUser.Username = request.Username;
+            newUser.PasswordHash = password.Hash;
+            newUser.PasswordSalt = password.Salt;
+            newUser.Email = "test@subject.ako";
+
+            userServices.Create(newUser);
+
+            return Ok(newUser);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(RegisterUserBindingModel request)
+        {
+            if (!userServices.IsExisting(request.Username))
+            {
+                return BadRequest(new { Message = "This user does not exist!" });
+            }
+
+            User user = userServices.GetByUsername(request.Username);
+
+            if (!userServices.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return BadRequest(new { Message = "Wrong password!" });
+            }
+
+            string token = configuration.GetSection("AppSettings:Token").Value;
+
+            string generatedToken = userServices.CreateToken(user, token);
+
+            return Ok(new { Message = generatedToken });
+        }
+    }
+}

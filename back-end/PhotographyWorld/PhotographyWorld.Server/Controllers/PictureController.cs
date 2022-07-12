@@ -7,7 +7,7 @@ namespace PhotographyWorld.Server.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class PictureController : Controller
+    public class PictureController : ControllerBase
     {
         private readonly IPictureServices pictureServices;
         private readonly ICloudinaryServices cloudinaryServices;
