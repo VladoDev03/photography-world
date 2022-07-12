@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BindingModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PhotographyWorld.Data\PhotographyWorld.Data.csproj" />
     <ProjectReference Include="..\PhotographyWorld.Services\PhotographyWorld.Services.csproj" />
   </ItemGroup>

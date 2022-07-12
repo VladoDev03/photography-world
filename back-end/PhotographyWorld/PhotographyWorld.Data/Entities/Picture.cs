@@ -14,7 +14,7 @@ namespace PhotographyWorld.Data.Entities
 
         public string Description { get; set; }
 
-        public string ImagePublicId { get; set; }
+        public string PublicId { get; set; }
 
         public bool IsDownloadable { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhotographyWorld.Data.Entities;
+using PhotographyWorld.Server.BindingModels;
 using PhotographyWorld.Services.Contracts;
 
 namespace PhotographyWorld.Server.Controllers
@@ -9,10 +10,14 @@ namespace PhotographyWorld.Server.Controllers
     public class PictureController : Controller
     {
         private readonly IPictureServices pictureServices;
+        private readonly ICloudinaryServices cloudinaryServices;
 
-        public PictureController(IPictureServices pictureServices)
+        public PictureController(
+            IPictureServices pictureServices,
+            ICloudinaryServices cloudinaryServices)
         {
             this.pictureServices = pictureServices;
+            this.cloudinaryServices = cloudinaryServices;
         }
 
         [HttpGet("pictures")]
@@ -22,9 +27,20 @@ namespace PhotographyWorld.Server.Controllers
         }
 
         [HttpPost("pictures")]
-        public IActionResult CreatePicture([FromBody] Picture picture)
+        public async Task<IActionResult> CreatePicture([FromForm] AddPictureBindingModel content)
         {
-            return new JsonResult(picture);
+            Picture picture = new Picture();
+
+            byte[] data = await cloudinaryServices.GetImageBytes(content.Picture);
+            string[] imageData = cloudinaryServices.UploadImage(data, "Photography/Posts").Split("*");
+
+            picture.Url = imageData[0];
+            picture.PublicId = imageData[1];
+            picture.DownloadUrl = cloudinaryServices.GetDownloadLink(imageData[0]);
+            picture.IsDownloadable = true;
+            picture.Description = content.Comment;
+
+            return Created("", pictureServices.Create(picture));
         }
 
         [HttpGet("pictures/{id}")]

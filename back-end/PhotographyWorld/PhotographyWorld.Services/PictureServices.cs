@@ -18,6 +18,15 @@ namespace PhotographyWorld.Services
             this.db = db;
         }
 
+        public Picture Create(Picture picture)
+        {
+            db.Pictures.Add(picture);
+
+            db.SaveChanges();
+
+            return picture;
+        }
+
         public List<Picture> GetAll()
         {
             return db.Pictures.ToList();

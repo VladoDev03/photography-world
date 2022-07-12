@@ -1,5 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Http;
 using PhotographyWorld.Data;
 using PhotographyWorld.Data.ConfigurationModels;
 using PhotographyWorld.Data.Entities;
@@ -51,7 +52,7 @@ namespace PhotographyWorld.Services
                 return null;
             }
 
-            return profilePicture.ImagePublicId;
+            return profilePicture.PublicId;
         }
 
         public string GetDownloadLink(string url)
@@ -97,6 +98,17 @@ namespace PhotographyWorld.Services
             string id = uploadResult.PublicId;
 
             return $"{url}*{id}";
+        }
+
+        public async Task<byte[]> GetImageBytes(IFormFile file)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                byte[] img = memoryStream.ToArray();
+
+                return img;
+            }
         }
 
         private Account SetUpCloudinaryAccount(CloudinaryConfigurationModel cloudinaryConfiguration)

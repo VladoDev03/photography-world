@@ -26,15 +26,17 @@ builder.Services.AddDbContext<GalleryDbContext>(options =>
 
 builder.Services.AddSingleton(cloudinaryConfiguration);
 builder.Services.AddScoped<IPictureServices, PictureServices>();
+builder.Services.AddScoped<ICloudinaryServices, CloudinaryServices>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: AllowedSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000")
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
+                          policy
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                       });
 });
 
@@ -81,7 +83,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://www.nme.com/wp-content/uploads/2022/07/Thor_Love_And_Thunder-1.jpg",
                     Description = "This is a picture from Thor Love and Thunder",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
@@ -90,7 +92,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://i.redd.it/sq9lfbthd7c31.png",
                     Description = "This is a picture from Doctor Strange in the Multiverse of Madness",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
@@ -99,7 +101,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://th.bing.com/th/id/R.d8ae7705579c67e767d46a43787f0f4a?rik=45NToZV%2bnTuTUw&pid=ImgRaw&r=0",
                     Description = "This is a picture from Top Gun Maverick",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
@@ -108,7 +110,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://th.bing.com/th/id/R.29e11be2064894341e5893d8d1db5aec?rik=KJsAh%2bBazDf4IQ&pid=ImgRaw&r=0",
                     Description = "This is a picture from Morbius",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
@@ -117,7 +119,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://th.bing.com/th/id/R.30fc03d5aca33081700abd40003c515c?rik=kjJXiZeiCTk0jQ&pid=ImgRaw&r=0",
                     Description = "This is a picture from Jurassic World Dominion",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
@@ -126,7 +128,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://th.bing.com/th/id/OIP.aLMcp3QAZ07XdbnhiB7YdAHaEG?pid=ImgDet&rs=1",
                     Description = "This is a picture from Sonic the Hedgehog 2",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
@@ -135,7 +137,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Url = "https://simkl.in/fanart/11/1144769496e174c9d4_medium.jpg",
                     Description = "This is a picture from The Batman",
                     DownloadUrl = "123",
-                    ImagePublicId = "123",
+                    PublicId = "123",
                     //UserId = "123",
                     IsDownloadable = true
                 });
