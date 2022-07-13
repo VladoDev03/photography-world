@@ -1,11 +1,9 @@
 ﻿namespace PhotographyWorld.Server.BindingModels
 {
-    public class RegisterUserBindingModel
+    public class LoginUserBindingModel
     {
         public string Username { get; set; }
 
         public string Password { get; set; }
-
-        public string ConfirmPassword { get; set; }
     }
 }

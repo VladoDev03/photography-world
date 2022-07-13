@@ -22,8 +22,18 @@ namespace PhotographyWorld.Server.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterUserBindingModel request)
+        public IActionResult Register([FromBody] RegisterUserBindingModel request)
         {
+            if (request.Password != request.ConfirmPassword)
+            {
+                return BadRequest(new { Message = "Passwords must match" });
+            }
+
+            if (userServices.IsExisting(request.Username))
+            {
+                return BadRequest(new { Message = "This user does already exist!" });
+            }
+
             User newUser = new User();
 
             PasswordServiceModel password = userServices.CreatePasswordHash(request.Password);
@@ -39,7 +49,7 @@ namespace PhotographyWorld.Server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(RegisterUserBindingModel request)
+        public IActionResult Login([FromBody] LoginUserBindingModel request)
         {
             if (!userServices.IsExisting(request.Username))
             {
