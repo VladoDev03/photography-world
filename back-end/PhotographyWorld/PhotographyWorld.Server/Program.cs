@@ -93,7 +93,9 @@ void SeedDatabase(IServiceProvider serviceCollection)
                 {
                     Username = "name",
                     Email = "email",
-                    Id = "123"
+                    Id = "123",
+                    PasswordHash = new byte[1],
+                    PasswordSalt = new byte[1]
                 });
             }
 

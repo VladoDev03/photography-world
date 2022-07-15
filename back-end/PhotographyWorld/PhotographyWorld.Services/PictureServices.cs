@@ -27,6 +27,16 @@ namespace PhotographyWorld.Services
             return picture;
         }
 
+        public Picture Delete(string pictureId)
+        {
+            Picture picture = GetById(pictureId);
+            db.Pictures.Remove(picture);
+
+            db.SaveChanges();
+
+            return picture;
+        }
+
         public List<Picture> GetAll()
         {
             return db.Pictures.ToList();

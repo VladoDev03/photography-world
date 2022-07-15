@@ -14,5 +14,7 @@ namespace PhotographyWorld.Services.Contracts
         Picture GetById(string pictureId);
 
         Picture Create(Picture picture);
+
+        Picture Delete(string pictureId);
     }
 }

@@ -53,6 +53,15 @@ namespace PhotographyWorld.Server.Controllers
         [HttpDelete("pictures/{id}")]
         public IActionResult DeletePicture(string id)
         {
+            Picture post = pictureServices.GetById(id);
+
+            pictureServices.Delete(id);
+
+            if (post.PublicId != null)
+            {
+                cloudinaryServices.DeleteImage(post.PublicId);
+            }
+
             return new JsonResult(new {Message = $"Picture with id: {id} was successfully deleted!"});
         }
     }
