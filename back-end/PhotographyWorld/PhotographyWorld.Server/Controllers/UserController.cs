@@ -45,7 +45,7 @@ namespace PhotographyWorld.Server.Controllers
 
             userServices.Create(newUser);
 
-            return Ok(newUser);
+            return Ok(new { Message = "You registered successfully" });
         }
 
         [HttpPost("login")]
@@ -67,7 +67,7 @@ namespace PhotographyWorld.Server.Controllers
 
             string generatedToken = userServices.CreateToken(user, token);
 
-            return Ok(new { Message = generatedToken });
+            return Ok(new { Token = generatedToken, User = user });
         }
     }
 }
