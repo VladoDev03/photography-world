@@ -42,6 +42,11 @@ namespace PhotographyWorld.Services
             return db.Pictures.ToList();
         }
 
+        public List<Picture> GetUserPictures(string userId)
+        {
+            return db.Pictures.Where(x => x.UserId == userId).ToList();
+        }
+
         public Picture GetById(string pictureId)
         {
             return db.Pictures.FirstOrDefault(p => p.Id == pictureId);

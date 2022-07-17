@@ -11,6 +11,8 @@ namespace PhotographyWorld.Services.Contracts
     {
         List<Picture> GetAll();
 
+        List<Picture> GetUserPictures(string userId);
+
         Picture GetById(string pictureId);
 
         Picture Create(Picture picture);

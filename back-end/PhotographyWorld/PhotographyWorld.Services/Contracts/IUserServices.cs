@@ -10,6 +10,8 @@ namespace PhotographyWorld.Services.Contracts
 {
     public interface IUserServices
     {
+        User GetById(string userId);
+
         User Create(User user);
 
         User GetByUsername(string username);

@@ -66,6 +66,11 @@ namespace PhotographyWorld.Services
             return jwt;
         }
 
+        public User GetById(string userId)
+        {
+            return db.Users.FirstOrDefault(x => x.Id == userId);
+        }
+
         public User GetByUsername(string username)
         {
             return db.Users.FirstOrDefault(x => x.Username == username);

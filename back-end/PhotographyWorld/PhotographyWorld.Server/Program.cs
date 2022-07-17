@@ -107,7 +107,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from Thor Love and Thunder",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
                 galleryDbContext.Pictures.Add(new Picture()
@@ -116,7 +116,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from Doctor Strange in the Multiverse of Madness",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
                 galleryDbContext.Pictures.Add(new Picture()
@@ -125,7 +125,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from Top Gun Maverick",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
                 galleryDbContext.Pictures.Add(new Picture()
@@ -134,7 +134,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from Morbius",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
                 galleryDbContext.Pictures.Add(new Picture()
@@ -143,7 +143,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from Jurassic World Dominion",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
                 galleryDbContext.Pictures.Add(new Picture()
@@ -152,7 +152,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from Sonic the Hedgehog 2",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
                 galleryDbContext.Pictures.Add(new Picture()
@@ -161,7 +161,7 @@ void SeedDatabase(IServiceProvider serviceCollection)
                     Description = "This is a picture from The Batman",
                     DownloadUrl = "123",
                     PublicId = "123",
-                    //UserId = "123",
+                    UserId = "123",
                     IsDownloadable = true
                 });
 

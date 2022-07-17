@@ -45,7 +45,7 @@ namespace PhotographyWorld.Server.Controllers
 
             userServices.Create(newUser);
 
-            return Ok(new { Message = "You registered successfully" });
+            return Ok(newUser);
         }
 
         [HttpPost("login")]

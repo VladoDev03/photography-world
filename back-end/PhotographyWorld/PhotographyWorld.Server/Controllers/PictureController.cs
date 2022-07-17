@@ -31,6 +31,7 @@ namespace PhotographyWorld.Server.Controllers
         public async Task<IActionResult> CreatePicture([FromForm] AddPictureBindingModel content)
         {
             Picture picture = new Picture();
+            picture.UserId = content.UserId;
 
             byte[] data = await cloudinaryServices.GetImageBytes(content.Picture);
             string[] imageData = cloudinaryServices.UploadImage(data, "Photography/Posts").Split("*");
@@ -63,6 +64,12 @@ namespace PhotographyWorld.Server.Controllers
             }
 
             return new JsonResult(new {Message = $"Picture with id: {id} was successfully deleted!"});
+        }
+
+        [HttpGet("pictures/user/")]
+        public IActionResult GetUserPictures([FromQuery] string userId)
+        {
+            return new JsonResult(pictureServices.GetUserPictures(userId));
         }
     }
 }
