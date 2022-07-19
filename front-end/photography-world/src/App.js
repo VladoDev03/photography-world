@@ -1,9 +1,8 @@
 import './App.css';
-import { LoadingSpinner } from './components/loading-spinner/LoadingSpinner';
-import { Image } from './components/image/Image';
 import { Navbar } from './components/navbar/Navbar';
 import { Register } from './components/register/Register';
 import { Routes, Route } from 'react-router-dom';
+import { Login } from './components/login/Login';
 
 function App() {
     return (
@@ -14,6 +13,7 @@ function App() {
                     <h1>Photography World</h1>
                 </>}></Route>
                 <Route path='register' element={<Register />}></Route>
+                <Route path='login' element={<Login />}></Route>
             </Routes>
         </div>
     );
