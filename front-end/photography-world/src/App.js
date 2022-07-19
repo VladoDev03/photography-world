@@ -1,10 +1,12 @@
 import './App.css';
 import { LoadingSpinner } from './components/loading-spinner/LoadingSpinner';
 import { Image } from './components/image/Image';
+import { Navbar } from './components/Navbar/Navbar';
 
 function App() {
     return (
         <div className="App">
+            <Navbar />
             <header className="App-header">
                 <h1>Photography World</h1>
                 <LoadingSpinner />
