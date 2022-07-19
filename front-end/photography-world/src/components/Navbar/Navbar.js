@@ -30,6 +30,7 @@ export function Navbar() {
             <div className={`${styles['navbar-links']} ${isMenuActive ? styles['active'] : ''}`}>
                 <ul>
                     <li><NavLink className={setStyle} to="/">Home</NavLink></li>
+                    <li><NavLink className={setStyle} to="/register">Register</NavLink></li>
                 </ul>
             </div>
         </nav>
