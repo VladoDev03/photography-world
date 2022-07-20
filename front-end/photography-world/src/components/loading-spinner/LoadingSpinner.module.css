@@ -1,6 +1,6 @@
 .spinner {
-    width: 75px;
-    height: 75px;
+    width: 150px;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,7 @@
 .heading {
     font-style: italic;
     font-size: large;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 .spinner-sector {
@@ -22,7 +22,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 5px solid transparent;
+    border: 7px solid transparent;
     animation: rotate var(--duration) var(--timing) infinite;
     pointer-events: none;
 }

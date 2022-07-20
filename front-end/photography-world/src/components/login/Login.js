@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom'
-import styles from './Login.module.css'
+// import styles from './Login.module.css'
 
 export function Login() {
     const [values, setValues] = useState({
@@ -20,19 +20,19 @@ export function Login() {
     }
 
     return (
-        <div className={styles['center']}>
+        <div className='center'>
             <h1>Login</h1>
             <form method="post" onSubmit={submitHandler}>
-                <div className={styles['text-field']}>
+                <div className='text-field'>
                     <input name="username" type="text" value={values.username} onChange={changeHandler} required />
                     <label htmlFor="username">Username</label>
                 </div>
-                <div className={styles['text-field']}>
+                <div className='text-field'>
                     <input name="password" type="password" value={values.password} onChange={changeHandler} required />
                     <label htmlFor="password">Password</label>
                 </div>
                 <input type="submit" value="Login" />
-                <div className={styles['signup-link']}>
+                <div className='signup-link'>
                     Not having an account? <Link to="/register">Register</Link>
                 </div>
             </form>
