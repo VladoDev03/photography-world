@@ -128,3 +128,12 @@ input[type=file] {
 .center form .text-field input:valid~label~span::before {
     width: 100%;
 }
+
+.grid {
+    display: grid;
+}
+
+.preview {
+    max-width: 300px;
+    justify-content: center;
+}

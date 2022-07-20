@@ -52,8 +52,8 @@ export function AddImageForm() {
 
                 <button className={styles['submit']} type="submit">Publish</button>
             </form>
-            {picture && <img src={preview} />}
             {!isShown || <LoadingSpinner />}
+            {!isShown && picture && <img className={styles['preview']} src={preview} />}
         </div>
     )
 }
