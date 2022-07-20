@@ -1,19 +1,20 @@
 .spinner {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
     font-weight: bold;
     overflow: visible;
     position: relative;
     animation: text-color 2s ease-in-out infinite alternate;
+    margin-bottom: 20px;
 }
 
 .heading {
     font-style: italic;
     font-size: large;
+    font-size: 1rem;
 }
 
 .spinner-sector {
@@ -22,7 +23,6 @@
     height: 100%;
     border-radius: 50%;
     border: 5px solid transparent;
-    mix-blend-mode: overlay;
     animation: rotate var(--duration) var(--timing) infinite;
     pointer-events: none;
 }
@@ -57,14 +57,14 @@
 
 @keyframes text-color {
     0% {
-        color: rgba(4, 44, 39, 1);
+        color: rgb(5, 100, 89, 0);
     }
 
     50% {
-        color: rgba(4, 44, 39, 0.5);
+        color: rgba(5, 100, 89, 0.5);
     }
 
     100% {
-        color: rgba(4, 44, 39, 0.1);
+        color: rgba(5, 100, 89, 0.1);
     }
 }

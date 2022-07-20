@@ -39,21 +39,24 @@ export function AddImageForm() {
     return (
         <div className={styles['center']}>
             <h1>Share Image</h1>
-            <form onSubmit={submitHandler} method="post">
-                <div className={styles['text-field']}>
-                    <input id="comment" type="text" name="comment" value={description} onChange={descriptionHandler} required />
-                    <label htmlFor="comment">Comment</label>
-                </div>
+            {!isShown &&
+                <form onSubmit={submitHandler} method="post">
+                    <div className={styles['text-field']}>
+                        <input id="comment" type="text" name="comment" value={description} onChange={descriptionHandler} required />
+                        <label htmlFor="comment">Comment</label>
+                    </div>
 
-                <div>
-                    <label className={styles['image']} htmlFor="picture">{isChosen ? 'Select' : 'Change'} Image</label>
-                    <input id="picture" type="file" name="picture" accept="image/*" onChange={pictureHandler} required />
-                </div>
+                    <div>
+                        <label className={styles['image']} htmlFor="picture">{isChosen ? 'Select' : 'Change'} Image</label>
+                        <input id="picture" type="file" name="picture" accept="image/*" onChange={pictureHandler} required />
+                    </div>
 
-                <button className={styles['submit']} type="submit">Publish</button>
-            </form>
-            {!isShown || <LoadingSpinner />}
-            {!isShown && picture && <img className={styles['preview']} src={preview} />}
+                    <button className={styles['submit']} type="submit">Publish</button>
+                </form>}
+            <div className={styles['center-img']} >
+                {!isShown && picture && <img className={styles['preview']} src={preview} />}
+                {!isShown || <LoadingSpinner />}
+            </div>
         </div>
     )
 }

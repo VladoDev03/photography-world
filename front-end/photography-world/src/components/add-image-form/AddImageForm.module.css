@@ -136,4 +136,10 @@ input[type=file] {
 .preview {
     max-width: 300px;
     justify-content: center;
+    margin-bottom: 15px;
+}
+
+.center-img {
+    display: grid;
+    justify-content: center;
 }
