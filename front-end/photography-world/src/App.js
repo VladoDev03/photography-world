@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Login } from './components/login/Login';
 import { Gallery } from './components/gallery/Gallery';
 import { Image } from './components/image/Image';
+import { AddImageForm } from './components/add-image-form/AddImageForm';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 </>}></Route>
                 <Route path='register' element={<Register />}></Route>
                 <Route path='login' element={<Login />}></Route>
+                <Route path='add' element={<AddImageForm />}></Route>
                 <Route path='images' element={
                     <>
                         <h1>All Images</h1>
