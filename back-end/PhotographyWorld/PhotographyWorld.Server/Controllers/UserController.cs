@@ -26,12 +26,12 @@ namespace PhotographyWorld.Server.Controllers
         {
             if (request.Password != request.ConfirmPassword)
             {
-                return BadRequest(new { Message = "Passwords must match" });
+                return BadRequest(new { Message = "Passwords must match." });
             }
 
             if (userServices.IsExisting(request.Username))
             {
-                return BadRequest(new { Message = "This user does already exist!" });
+                return BadRequest(new { Message = "This user does already exist." });
             }
 
             User newUser = new User();
@@ -41,7 +41,7 @@ namespace PhotographyWorld.Server.Controllers
             newUser.Username = request.Username;
             newUser.PasswordHash = password.Hash;
             newUser.PasswordSalt = password.Salt;
-            newUser.Email = "test@subject.ako";
+            newUser.Email = "test@subject.now";
 
             userServices.Create(newUser);
 
@@ -53,14 +53,14 @@ namespace PhotographyWorld.Server.Controllers
         {
             if (!userServices.IsExisting(request.Username))
             {
-                return BadRequest(new { Message = "This user does not exist!" });
+                return BadRequest(new { Message = "This user does not exist." });
             }
 
             User user = userServices.GetByUsername(request.Username);
 
             if (!userServices.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return BadRequest(new { Message = "Wrong password!" });
+                return BadRequest(new { Message = "Wrong password." });
             }
 
             string token = configuration.GetSection("AppSettings:Token").Value;

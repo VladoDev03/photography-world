@@ -30,6 +30,21 @@ namespace PhotographyWorld.Server.Controllers
         [HttpPost("pictures")]
         public async Task<IActionResult> CreatePicture([FromForm] AddPictureBindingModel content)
         {
+            if (content.Comment == null)
+            {
+                return BadRequest(new {Message = "You cannot share an image without a comment." });
+            }
+
+            if (content.UserId == null)
+            {
+                return BadRequest(new { Message = "You have to login in order to share images." });
+            }
+
+            if (content.Picture == null)
+            {
+                return BadRequest(new { Message = "You cannot share empty images." });
+            }
+
             Picture picture = new Picture();
             picture.UserId = content.UserId;
 
@@ -48,12 +63,22 @@ namespace PhotographyWorld.Server.Controllers
         [HttpGet("pictures/{id}")]
         public IActionResult GetPicture(string id)
         {
+            if (id == null)
+            {
+                return BadRequest(new { Message = "Invalid id." });
+            }
+
             return new JsonResult(pictureServices.GetById(id));
         }
 
         [HttpDelete("pictures/{id}")]
         public IActionResult DeletePicture(string id)
         {
+            if (id == null)
+            {
+                return BadRequest(new { Message = "Invalid id." });
+            }
+
             Picture post = pictureServices.GetById(id);
 
             pictureServices.Delete(id);
@@ -69,6 +94,11 @@ namespace PhotographyWorld.Server.Controllers
         [HttpGet("pictures/user/")]
         public IActionResult GetUserPictures([FromQuery] string userId)
         {
+            if (userId == null)
+            {
+                return BadRequest(new { Message = "Invalid id." });
+            }
+
             return new JsonResult(pictureServices.GetUserPictures(userId));
         }
     }
