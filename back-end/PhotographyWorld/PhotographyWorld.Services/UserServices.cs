@@ -25,6 +25,11 @@ namespace PhotographyWorld.Services
 
         public User Create(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("User cannot be null.");
+            }
+
             db.Users.Add(user);
 
             db.SaveChanges();
@@ -34,6 +39,11 @@ namespace PhotographyWorld.Services
 
         public PasswordServiceModel CreatePasswordHash(string password)
         {
+            if (password == null)
+            {
+                throw new ArgumentNullException("Password cannot be null.");
+            }
+
             PasswordServiceModel resultPassword = new PasswordServiceModel();
 
             using (HMACSHA512 hmac = new HMACSHA512())
@@ -47,6 +57,16 @@ namespace PhotographyWorld.Services
 
         public string CreateToken(User user, string token)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("User cannot be null.");
+            }
+
+            if (token == null)
+            {
+                throw new ArgumentNullException("Token cannot be null.");
+            }
+
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, user.Username)
@@ -68,21 +88,41 @@ namespace PhotographyWorld.Services
 
         public User GetById(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("User id cannot be null.");
+            }
+
             return db.Users.FirstOrDefault(x => x.Id == userId);
         }
 
         public User GetByUsername(string username)
         {
+            if (username == null)
+            {
+                throw new ArgumentNullException("Username cannot be null.");
+            }
+
             return db.Users.FirstOrDefault(x => x.Username == username);
         }
 
         public bool IsExisting(string username)
         {
+            if (username == null)
+            {
+                throw new ArgumentNullException("Username cannot be null.");
+            }
+
             return GetByUsername(username) != null;
         }
 
         public bool VerifyPasswordHash(string password, byte[] hash, byte[] salt)
         {
+            if (password == null)
+            {
+                throw new ArgumentNullException("Password cannot be null.");
+            }
+
             using (HMACSHA512 hmac = new HMACSHA512(salt))
             {
                 byte[] computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));

@@ -20,6 +20,11 @@ namespace PhotographyWorld.Services
 
         public Picture Create(Picture picture)
         {
+            if (picture == null)
+            {
+                throw new ArgumentNullException("Picture cannot be null.");
+            }
+
             db.Pictures.Add(picture);
 
             db.SaveChanges();
@@ -29,6 +34,11 @@ namespace PhotographyWorld.Services
 
         public Picture Delete(string pictureId)
         {
+            if (pictureId == null)
+            {
+                throw new ArgumentNullException("Picture id cannot be null.");
+            }
+
             Picture picture = GetById(pictureId);
             db.Pictures.Remove(picture);
 
@@ -44,11 +54,21 @@ namespace PhotographyWorld.Services
 
         public List<Picture> GetUserPictures(string userId)
         {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("User id cannot be null.");
+            }
+
             return db.Pictures.Where(x => x.UserId == userId).ToList();
         }
 
         public Picture GetById(string pictureId)
         {
+            if (pictureId == null)
+            {
+                throw new ArgumentNullException("Picture id cannot be null.");
+            }
+
             return db.Pictures.FirstOrDefault(p => p.Id == pictureId);
         }
     }
