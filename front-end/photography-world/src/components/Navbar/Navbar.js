@@ -32,6 +32,7 @@ export function Navbar() {
                     <li><NavLink className={setStyle} to="/">Home</NavLink></li>
                     <li><NavLink className={setStyle} to="/register">Register</NavLink></li>
                     <li><NavLink className={setStyle} to="/login">Login</NavLink></li>
+                    <li><NavLink className={setStyle} to="/images">Images</NavLink></li>
                 </ul>
             </div>
         </nav>
