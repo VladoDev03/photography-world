@@ -34,7 +34,7 @@ input[type=file] {
 }
 
 .preview {
-    max-width: 300px;
+    max-height: 300px;
     justify-content: center;
     margin-bottom: 15px;
 }
