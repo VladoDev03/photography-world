@@ -32,15 +32,3 @@ input[type=file] {
 .grid {
     display: grid;
 }
-
-.preview {
-    max-height: 300px;
-    max-width: 300px;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-
-.center-img {
-    display: grid;
-    justify-content: center;
-}
