@@ -91,8 +91,8 @@ namespace PhotographyWorld.Server.Controllers
             return new JsonResult(new {Message = $"Picture with id: {id} was successfully deleted!"});
         }
 
-        [HttpGet("pictures/user/")]
-        public IActionResult GetUserPictures([FromQuery] string userId)
+        [HttpGet("pictures/user/{userId}")]
+        public IActionResult GetUserPictures([FromRoute] string userId)
         {
             if (userId == null)
             {
