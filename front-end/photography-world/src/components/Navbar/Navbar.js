@@ -4,7 +4,6 @@ import styles from './Navbar.module.css'
 
 export function Navbar() {
     const [isMenuActive, setIsMenuActive] = useState(false)
-    const [isTabActive, setIsTabActive] = useState(false)
     const navigate = useNavigate()
 
     const handleClick = () => {
@@ -22,7 +21,7 @@ export function Navbar() {
     return (
         <nav className={styles['navbar']}>
             <div onClick={takeMeHome}><h1 className={styles['brand-title']}>Photography World</h1></div>
-            <a className={styles['toggle-button']} onClick={handleClick}>
+            <a href='#/' className={styles['toggle-button']} onClick={handleClick}>
                 <span className={styles['bar']}></span>
                 <span className={styles['bar']}></span>
                 <span className={styles['bar']}></span>
@@ -32,8 +31,7 @@ export function Navbar() {
                     <li><NavLink className={setStyle} to="/">Home</NavLink></li>
                     <li><NavLink className={setStyle} to="/register">Register</NavLink></li>
                     <li><NavLink className={setStyle} to="/login">Login</NavLink></li>
-                    <li><NavLink className={setStyle} to="/images">Images</NavLink></li>
-                    <li><NavLink className={setStyle} to="/add">Add</NavLink></li>
+                    <li><NavLink className={setStyle} to="/add">Share</NavLink></li>
                 </ul>
             </div>
         </nav>
