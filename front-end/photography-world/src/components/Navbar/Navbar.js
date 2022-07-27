@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.css'
+import { AuthContext } from "../../contexts/AuthContext"
 
 export function Navbar() {
     const [isMenuActive, setIsMenuActive] = useState(false)
     const navigate = useNavigate()
+    const {auth} = useContext(AuthContext)
 
     const handleClick = () => {
         setIsMenuActive(oldState => !oldState)
@@ -29,8 +31,8 @@ export function Navbar() {
             <div className={`${styles['navbar-links']} ${isMenuActive ? styles['active'] : ''}`}>
                 <ul>
                     <li><NavLink className={setStyle} to="/">Home</NavLink></li>
-                    <li><NavLink className={setStyle} to="/register">Register</NavLink></li>
-                    <li><NavLink className={setStyle} to="/login">Login</NavLink></li>
+                    {!auth.token && <li><NavLink className={setStyle} to="/register">Register</NavLink></li>}
+                    {!auth.token && <li><NavLink className={setStyle} to="/login">Login</NavLink></li>}
                     <li><NavLink className={setStyle} to="/add">Share</NavLink></li>
                 </ul>
             </div>

@@ -1,11 +1,17 @@
-import { useState } from "react"
-import { Link } from 'react-router-dom'
+import { useState, useContext } from "react"
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from "../../contexts/AuthContext";
+import * as authService from '../../services/authService'
 
 export function Login() {
     const [values, setValues] = useState({
         username: '',
         password: ''
     })
+
+    const navigate = useNavigate()
+
+    const {userLogin} = useContext(AuthContext)
 
     const changeHandler = (e) => {
         setValues(state => ({
@@ -16,6 +22,14 @@ export function Login() {
 
     const submitHandler = (e) => {
         e.preventDefault()
+
+        let userData = {
+            username: values.username,
+            password: values.password
+        }
+
+        authService.login(userData).then(data => userLogin(data))
+        navigate('/')
     }
 
     return (
