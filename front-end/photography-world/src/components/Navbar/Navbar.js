@@ -6,13 +6,13 @@ import { AuthContext } from "../../contexts/AuthContext"
 export function Navbar() {
     const [isMenuActive, setIsMenuActive] = useState(false)
     const navigate = useNavigate()
-    const {auth} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
     const handleClick = () => {
         setIsMenuActive(oldState => !oldState)
     }
 
-    const setStyle = ({isActive}) => {
+    const setStyle = ({ isActive }) => {
         return isActive ? styles['active-link'] : ''
     }
 
@@ -31,8 +31,9 @@ export function Navbar() {
             <div className={`${styles['navbar-links']} ${isMenuActive ? styles['active'] : ''}`}>
                 <ul>
                     <li><NavLink className={setStyle} to="/">Home</NavLink></li>
-                    {!auth.token && <li><NavLink className={setStyle} to="/register">Register</NavLink></li>}
-                    {!auth.token && <li><NavLink className={setStyle} to="/login">Login</NavLink></li>}
+                    {!user.token && <li><NavLink className={setStyle} to="/register">Register</NavLink></li>}
+                    {!user.token && <li><NavLink className={setStyle} to="/login">Login</NavLink></li>}
+                    {user.token && <li><NavLink className={setStyle} to="/logout">Logout</NavLink></li>}
                     <li><NavLink className={setStyle} to="/add">Share</NavLink></li>
                 </ul>
             </div>
