@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Link } from 'react-router-dom'
+import { AuthContext } from "../../contexts/AuthContext";
+import * as authService from '../../services/authService'
 
 export function Register() {
     const navigate = useNavigate()
+    const {userLogin} = useContext(AuthContext)
 
     const [values, setValues] = useState({
         username: '',
@@ -20,6 +23,15 @@ export function Register() {
 
     const submitHandler = (e) => {
         e.preventDefault()
+
+        let userData = {
+            username: values.username,
+            password: values.password,
+            confirmPassword: values.confirmPassword
+        }
+
+        authService.register(userData).then(data => userLogin(data))
+
         navigate('/login')
     }
 

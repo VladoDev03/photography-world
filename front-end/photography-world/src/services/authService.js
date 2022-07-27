@@ -18,7 +18,7 @@ export async function register(userData) {
     const response = await fetch(`${baseUrl}/register`, {
         method: 'POST',
         headers: {
-            'content/type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
     })
