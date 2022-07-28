@@ -6,11 +6,11 @@ import { Login } from './components/login/Login';
 import { AddImage } from './components/add-image/AddImage';
 import { Home } from './components/home/Home';
 import { AuthContext } from './contexts/AuthContext'
-import { useState } from 'react';
-import { Logout } from './components/Logout/Logout';
+import { Logout } from './components/logout/Logout';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
-    const [auth, setAuth] = useState({})
+    const [auth, setAuth] = useLocalStorage('auth', {})
 
     const userLogout = () => {
         setAuth({})
