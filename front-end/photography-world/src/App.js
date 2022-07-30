@@ -8,6 +8,7 @@ import { Home } from './components/home/Home';
 import { Logout } from './components/logout/Logout';
 import { AuthProvider } from './contexts/AuthContext'
 import { PrivateRoute } from './components/private-route/PrivateRoute';
+import { NotFound } from './components/not-found/NotFound';
 
 function App() {
     return (
@@ -22,7 +23,7 @@ function App() {
                         <Route path='logout' element={<Logout />}></Route>
                         <Route path='add' element={<AddImage />}></Route>
                     </Route>
-                    {/* <Route path='/*' element={<Login />}></Route> */}
+                    <Route path='/*' element={<NotFound />}></Route>
                 </Routes>
             </div>
         </AuthProvider>
