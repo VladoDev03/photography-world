@@ -61,7 +61,7 @@ namespace PhotographyWorld.Server.Controllers
         }
 
         [HttpGet("pictures/{id}")]
-        public IActionResult GetPicture(string id)
+        public IActionResult GetPicture([FromRoute] string id)
         {
             if (id == null)
             {
@@ -72,7 +72,7 @@ namespace PhotographyWorld.Server.Controllers
         }
 
         [HttpDelete("pictures/{id}")]
-        public IActionResult DeletePicture(string id)
+        public IActionResult DeletePicture([FromRoute] string id)
         {
             if (id == null)
             {

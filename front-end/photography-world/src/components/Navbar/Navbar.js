@@ -34,7 +34,7 @@ export function Navbar() {
                     {!user.token && <li><NavLink className={setStyle} to="/register">Register</NavLink></li>}
                     {!user.token && <li><NavLink className={setStyle} to="/login">Login</NavLink></li>}
                     {user.token && <li><NavLink className={setStyle} to="/logout">Logout</NavLink></li>}
-                    <li><NavLink className={setStyle} to="/add">Share</NavLink></li>
+                    {user.token && <li><NavLink className={setStyle} to="/add">Share</NavLink></li>}
                 </ul>
             </div>
         </nav>
