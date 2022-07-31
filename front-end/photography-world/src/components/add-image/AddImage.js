@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
 import { AddImageForm } from "../add-image-form/AddImageForm"
+import {AuthContext} from '../../contexts/AuthContext'
 import styles from './AddImage.module.css'
+import { Navigate } from "react-router-dom"
+import * as imageServices from '../../services/imageService'
 
 export function AddImage() {
+    const {user} = useContext(AuthContext)
     const [description, setDescription] = useState('')
     const [picture, setPicture] = useState('')
     const [isShown, setIsShown] = useState(false)
@@ -13,6 +17,22 @@ export function AddImage() {
         e.preventDefault()
 
         setIsShown(true)
+
+        const extension = picture.name.split('.').pop().toLowerCase()
+
+        if (extension !== 'png' && extension !== 'jpg') {
+            return <Navigate to='/add' replace />
+        }
+
+        const blob = new Blob([picture], { type: 'image/png' })
+
+        const content = new FormData()
+        
+        content.append('picture', blob)
+        content.append('comment', description)
+        content.append('userId', user.user.id)
+
+        imageServices.uploadImage(content).then(() => setIsShown(false))
     }
 
     const descriptionHandler = (e) => {
@@ -35,7 +55,7 @@ export function AddImage() {
         }
     }, [picture])
 
-    const isChosen = picture == undefined || picture == ''
+    const isChosen = picture === undefined || picture === ''
 
     return (
         <div className='center'>
