@@ -11,12 +11,14 @@ import { NotFound } from './components/not-found/NotFound';
 import { PrivateRoute } from './components/private-route/PrivateRoute';
 import { PublicRoute } from './components/public-route/PublicRoute';
 import { AuthProvider } from './contexts/AuthContext'
+import { ConfirmDelete } from './components/confirm-delete/ConfirmDelete';
 
 function App() {
     return (
         <AuthProvider>
             <div className='App'>
                 <Navbar />
+                <ConfirmDelete />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
                     <Route path='/*' element={<NotFound />}></Route>
