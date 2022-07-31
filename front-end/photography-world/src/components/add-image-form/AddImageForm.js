@@ -10,7 +10,7 @@ export function AddImageForm({submitHandler, descriptionHandler, pictureHandler,
             </div>
 
             <div>
-                <label className={styles['image']} htmlFor="picture">{isChosen ? 'Select' : 'Change'} Image</label>
+                <label className={styles['image']} htmlFor="picture">{!isChosen ? 'Select' : 'Change'} Image</label>
                 <input id="picture" type="file" name="picture" accept="image/*" onChange={pictureHandler} required />
             </div>
 
