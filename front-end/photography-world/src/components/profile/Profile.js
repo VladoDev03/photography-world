@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { useParams, userParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Gallery } from '../gallery/Gallery'
 import { Image } from '../image/Image'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -11,13 +11,14 @@ export function Profile() {
     const [userImages, setUserImages] = useState([])
     const { user } = useContext(AuthContext)
     const { id } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (id !== undefined) {
             userServices.getUser(id).then(data => {
                 setDisplayUser(data)
                 setUserImages(data.pictures)
-            })
+            }).catch(() => navigate("/*"))
         } else {
             userServices.getUser(user.user.id).then(data => {
                 setDisplayUser(data)

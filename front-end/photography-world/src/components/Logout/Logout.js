@@ -8,7 +8,7 @@ export function Logout() {
 
     useEffect(() => {
         userLogout()
-        navigate('/')
+        navigate(-1)
     }, [])
 
     return null
