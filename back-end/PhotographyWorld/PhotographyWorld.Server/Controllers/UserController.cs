@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhotographyWorld.Data.Entities;
+using PhotographyWorld.Data.ViewModels;
 using PhotographyWorld.Server.BindingModels;
 using PhotographyWorld.Services.Contracts;
+using PhotographyWorld.Services.Mappers;
 using PhotographyWorld.Services.Models;
 
 namespace PhotographyWorld.Server.Controllers
@@ -11,13 +13,16 @@ namespace PhotographyWorld.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserServices userServices;
+        private readonly IPictureServices pictureServices;
         private readonly IConfiguration configuration;
 
         public UserController(
             IUserServices userServices,
+            IPictureServices pictureServices,
             IConfiguration configuration)
         {
             this.userServices = userServices;
+            this.pictureServices = pictureServices;
             this.configuration = configuration;
         }
 
@@ -68,6 +73,22 @@ namespace PhotographyWorld.Server.Controllers
             string generatedToken = userServices.CreateToken(user, token);
 
             return Ok(new { Token = generatedToken, User = user });
+        }
+
+        [HttpGet("users/{userId}")]
+        public IActionResult GetUser(string userId)
+        {
+            User user = userServices.GetById(userId);
+            List<Picture> userPictures = pictureServices.GetUserPictures(userId);
+
+            UserViewModel result = new UserViewModel()
+            {
+                Username = user.Username,
+                Id = user.Id,
+                Pictures = userPictures.Select(x => x.ToViewModel()).ToList()
+            };
+
+            return new JsonResult(result);
         }
     }
 }
