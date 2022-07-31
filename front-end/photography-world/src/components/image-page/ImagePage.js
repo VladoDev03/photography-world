@@ -9,6 +9,7 @@ export function ImagePage() {
     const [image, setImage] = useState({})
     const [username, setUsername] = useState('')
     const [isAsked, setIsAsked] = useState(false)
+    const [isOwner, setIsOwner] = useState(false)
     const { user } = useContext(AuthContext)
     const { id } = useParams()
     const navigate = useNavigate()
@@ -17,6 +18,7 @@ export function ImagePage() {
         imageServices.getImageById(id).then(data => {
             setImage(data)
             setUsername(data.user.username)
+            setIsOwner(data.user.id === user.user.id)
         })
     }, [])
 
@@ -44,7 +46,7 @@ export function ImagePage() {
                     <p className={styles['content']}>Description: {image.description}</p>
                 </div>
             </div>
-            <button onClick={openConfirmation} className={styles['delete-button']}>Delete</button>
+            {isOwner ? <button onClick={openConfirmation} className={styles['delete-button']}>Delete</button> : ''}
         </div>
     )
 }
