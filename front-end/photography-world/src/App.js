@@ -6,6 +6,7 @@ import { Login } from './components/login/Login';
 import { AddImage } from './components/add-image/AddImage';
 import { Home } from './components/home/Home';
 import { Logout } from './components/logout/Logout';
+import { Profile } from './components/profile/Profile';
 import { NotFound } from './components/not-found/NotFound';
 import { PrivateRoute } from './components/private-route/PrivateRoute';
 import { PublicRoute } from './components/public-route/PublicRoute';
@@ -18,6 +19,8 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
+                    <Route path='/*' element={<NotFound />}></Route>
+                    <Route path='user/:id' element={<Profile />}></Route>
                     <Route element={<PublicRoute />}>
                         <Route path='register' element={<Register />}></Route>
                         <Route path='login' element={<Login />}></Route>
@@ -25,8 +28,8 @@ function App() {
                     <Route element={<PrivateRoute />}>
                         <Route path='logout' element={<Logout />}></Route>
                         <Route path='add' element={<AddImage />}></Route>
+                        <Route path='profile' element={<Profile />}></Route>
                     </Route>
-                    <Route path='/*' element={<NotFound />}></Route>
                 </Routes>
             </div>
         </AuthProvider>
