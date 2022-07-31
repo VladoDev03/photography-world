@@ -15,7 +15,7 @@ export function Home() {
         <div className={styles['home']}>
             <h1 className={styles['home-title']}>Photography World</h1>
             <Gallery>
-                {images.map(x => <Image key={x.id} src={x.url} content={x.description} />)}
+                {images.map(x => <Image key={x.id} id={x.id} src={x.url} content={x.description} />)}
             </Gallery>
         </div>
     )

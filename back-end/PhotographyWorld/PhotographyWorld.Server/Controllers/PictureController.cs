@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhotographyWorld.Data.Entities;
+using PhotographyWorld.Data.ViewModels;
 using PhotographyWorld.Server.BindingModels;
 using PhotographyWorld.Services.Contracts;
+using PhotographyWorld.Services.Mappers;
 
 namespace PhotographyWorld.Server.Controllers
 {
@@ -68,7 +70,9 @@ namespace PhotographyWorld.Server.Controllers
                 return BadRequest(new { Message = "Invalid id." });
             }
 
-            return new JsonResult(pictureServices.GetById(id));
+            Picture picture = pictureServices.GetById(id);
+
+            return new JsonResult(picture.ToViewModel());
         }
 
         [HttpDelete("pictures/{id}")]

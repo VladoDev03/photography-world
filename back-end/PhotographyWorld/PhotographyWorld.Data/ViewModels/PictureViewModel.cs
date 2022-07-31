@@ -14,9 +14,6 @@ namespace PhotographyWorld.Data.ViewModels
 
         public string Description { get; set; }
 
-        public object ToViewModel()
-        {
-            throw new NotImplementedException();
-        }
+        public UserViewModel User { get; set; }
     }
 }

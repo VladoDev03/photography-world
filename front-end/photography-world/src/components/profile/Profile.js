@@ -30,7 +30,7 @@ export function Profile() {
     return (
         <div>
             <h1 className={styles['profile-title']}>{displayUser.username}</h1>
-            <Gallery>{userImages.map(x => <Image key={x.id} src={x.url} content={x.description} />)}</Gallery>
+            <Gallery>{userImages.map(x => <Image key={x.id} id={x.id} src={x.url} content={x.description} />)}</Gallery>
         </div>
     )
 }

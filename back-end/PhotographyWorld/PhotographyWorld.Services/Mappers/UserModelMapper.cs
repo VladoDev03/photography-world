@@ -8,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace PhotographyWorld.Services.Mappers
 {
-    public static class PictureModelMapper
+    public static class UserModelMapper
     {
-        public static PictureViewModel ToViewModel(this Picture picture)
+        public static UserViewModel ToViewModel(this User picture)
         {
-            return new PictureViewModel()
+            return new UserViewModel()
             {
                 Id = picture.Id,
-                Url = picture.Url,
-                Description = picture.Description,
-                User = picture.User.ToViewModel()
+                Username = picture.Username
             };
         }
     }

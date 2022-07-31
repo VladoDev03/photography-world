@@ -1,7 +1,6 @@
 .modal-container {
     display: flex;
     opacity: 1;
-    transition: 0.4s;
     position: fixed;
     top: 0;
     right: 0;

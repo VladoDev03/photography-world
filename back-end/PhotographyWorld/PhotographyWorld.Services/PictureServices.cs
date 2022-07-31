@@ -1,4 +1,5 @@
-﻿using PhotographyWorld.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PhotographyWorld.Data;
 using PhotographyWorld.Data.Entities;
 using PhotographyWorld.Services.Contracts;
 using System;
@@ -69,7 +70,7 @@ namespace PhotographyWorld.Services
                 throw new ArgumentNullException("Picture id cannot be null.");
             }
 
-            return db.Pictures.FirstOrDefault(p => p.Id == pictureId);
+            return db.Pictures.Include(x => x.User).FirstOrDefault(p => p.Id == pictureId);
         }
     }
 }
