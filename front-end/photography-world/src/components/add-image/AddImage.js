@@ -32,7 +32,7 @@ export function AddImage() {
 
         imageServices.uploadImage(content).then(() => {
             setIsShown(true)
-            navigate('/')
+            navigate('/profile')
         })
     }
 
@@ -53,6 +53,7 @@ export function AddImage() {
             reader.readAsDataURL(picture)
             setIsChosen(true)
         } else {
+            setIsChosen(false)
             setPreview('')
         }
     }, [picture])

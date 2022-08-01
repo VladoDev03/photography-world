@@ -16,7 +16,7 @@ export function AddImageForm({submitHandler, descriptionHandler, pictureHandler,
 
             <input className='submit' type="submit" value='Share' />
             <div className='signup-link'>
-                Not sure what to upload? <Link to="/images">My Images</Link>
+                Not sure what to upload? <Link to="/profile">My Images</Link>
             </div>
         </form>
     )
