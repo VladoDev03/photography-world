@@ -42,8 +42,14 @@ export function ImagePage() {
             <div className={styles['image-data']}>
                 <img className={styles['image']} src={image.url} />
                 <div>
-                    <p className={styles['content']}>Photographer: {username}</p>
-                    <p className={styles['content']}>Description: {image.description}</p>
+                    <p className={styles['content']}>
+                        <span className={styles['property-name']}>Photographer: </span>
+                        {username}
+                    </p>
+                    <p className={styles['content']}>
+                        <span className={styles['property-name']}>Description: </span>
+                        {image.description}
+                    </p>
                 </div>
             </div>
             {isOwner ? <button onClick={openConfirmation} className={styles['delete-button']}>Delete</button> : ''}
