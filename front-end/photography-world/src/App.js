@@ -21,7 +21,6 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
-                    <Route path='/edit' element={<EditImage />}></Route>
                     <Route path='/*' element={<NotFound />}></Route>
                     <Route path='user/:id' element={<Profile />}></Route>
                     <Route path='image/:id' element={<ImagePage />}></Route>
