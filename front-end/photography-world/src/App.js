@@ -1,6 +1,7 @@
 import './App.css';
 import { Navbar } from './components/navbar/Navbar';
 import { Register } from './components/register/Register';
+import { EditImage } from './components/edit-image/EditImage';
 import { Routes, Route } from 'react-router-dom';
 import { Login } from './components/login/Login';
 import { AddImage } from './components/add-image/AddImage';
@@ -20,6 +21,7 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
+                    <Route path='/edit' element={<EditImage />}></Route>
                     <Route path='/*' element={<NotFound />}></Route>
                     <Route path='user/:id' element={<Profile />}></Route>
                     <Route path='image/:id' element={<ImagePage />}></Route>

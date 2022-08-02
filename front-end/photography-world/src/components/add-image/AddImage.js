@@ -3,7 +3,7 @@ import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
 import { AddImageForm } from "../add-image-form/AddImageForm"
 import { AuthContext } from '../../contexts/AuthContext'
 import styles from './AddImage.module.css'
-import * as imageServices from '../../services/imageService'
+import * as imageService from '../../services/imageService'
 import { useNavigate } from "react-router-dom"
 
 export function AddImage() {
@@ -30,7 +30,7 @@ export function AddImage() {
         content.append('comment', description)
         content.append('userId', user.user.id)
 
-        imageServices.uploadImage(content).then(() => {
+        imageService.uploadImage(content).then(() => {
             setIsShown(true)
             navigate('/profile')
         })

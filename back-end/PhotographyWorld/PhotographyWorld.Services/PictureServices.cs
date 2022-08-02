@@ -72,5 +72,21 @@ namespace PhotographyWorld.Services
 
             return db.Pictures.Include(x => x.User).FirstOrDefault(p => p.Id == pictureId);
         }
+
+        public Picture Edit(string pictureId, string newDescription)
+        {
+            if (pictureId == null || newDescription == null)
+            {
+                throw new ArgumentNullException("Picture id cannot be null.");
+            }
+
+            Picture picture = db.Pictures.FirstOrDefault(p => p.Id == pictureId);
+
+            picture.Description = newDescription;
+
+            db.SaveChanges();
+
+            return picture;
+        }
     }
 }

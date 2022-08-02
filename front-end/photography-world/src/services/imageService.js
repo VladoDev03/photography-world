@@ -34,3 +34,17 @@ export async function deleteImage(imageId) {
 
     return result
 }
+
+export async function editImage({imageId, description}) {
+    const response = await fetch(`https://localhost:7211/api/pictures/${imageId}`, {
+        method: 'PUT',
+        body: JSON.stringify({description}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    const result = await response.json();
+
+    return result
+}

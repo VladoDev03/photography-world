@@ -1,4 +1,4 @@
-﻿namespace PhotographyWorld.Server.BindingModels
+﻿namespace PhotographyWorld.Server.BindingModels.User
 {
     public class RegisterUserBindingModel
     {

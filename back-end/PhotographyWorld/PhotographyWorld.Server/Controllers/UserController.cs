@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhotographyWorld.Data.Entities;
 using PhotographyWorld.Data.ViewModels;
-using PhotographyWorld.Server.BindingModels;
+using PhotographyWorld.Server.BindingModels.User;
 using PhotographyWorld.Services.Contracts;
 using PhotographyWorld.Services.Mappers;
 using PhotographyWorld.Services.Models;

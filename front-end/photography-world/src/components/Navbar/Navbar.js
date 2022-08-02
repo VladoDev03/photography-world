@@ -35,7 +35,7 @@ export function Navbar() {
                     {!user.token && <li><NavLink className={setStyle} to="/login">Login</NavLink></li>}
                     {user.token && <li><NavLink className={setStyle} to="/add">Share</NavLink></li>}
                     {user.token && <li><NavLink className={setStyle} to="/logout">Logout</NavLink></li>}
-                    {user.token && <li><NavLink className={setStyle} to="/profile">{user.user.username}</NavLink></li>}
+                    {user.token && <li><NavLink className={setStyle} to="/profile"><span className={styles['username']}>{user.user.username}</span></NavLink></li>}
                 </ul>
             </div>
         </nav>

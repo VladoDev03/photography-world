@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PhotographyWorld.Data.Entities;
 using PhotographyWorld.Data.ViewModels;
-using PhotographyWorld.Server.BindingModels;
+using PhotographyWorld.Server.BindingModels.Picture;
 using PhotographyWorld.Services.Contracts;
 using PhotographyWorld.Services.Mappers;
 
@@ -93,6 +93,17 @@ namespace PhotographyWorld.Server.Controllers
             }
 
             return new JsonResult(new {Message = $"Picture with id: {id} was successfully deleted!"});
+        }
+
+        [HttpPut("pictures/{id}")]
+        public IActionResult EditPicture([FromRoute] string id, [FromBody] EditPictureBindingModel newPicture)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { Message = "Invalid id." });
+            }
+
+            return new JsonResult(pictureServices.Edit(id, newPicture.Description));
         }
 
         [HttpGet("pictures/user/{userId}")]
