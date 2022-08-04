@@ -25,8 +25,8 @@ export function EditImage({imageId, closeHandler, description, setDescription, s
     }
 
     return (
-        <div className={styles['modal-container']}>
-            <div className={styles['modal']}>
+        <div onClick={closeHandler} className={styles['modal-container']}>
+            <div onClick={e => e.stopPropagation()} className={styles['modal']}>
                 <h3 className={styles['modal-title']}>Enter new description</h3>
                 <input className={styles['edit-input']} type='text' onChange={changeHandler} value={newDescription} />
                 <button onClick={closeHandler} className={`${styles['answer-button']} ${styles['no-button']}`}>cancel</button>
