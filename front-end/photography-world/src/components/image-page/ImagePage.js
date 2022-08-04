@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { useParams, useNavigate } from 'react-router-dom'
 import { ConfirmDelete } from '../confirm-delete/ConfirmDelete'
 import { EditImage } from "../edit-image/EditImage"
+import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
 import { AuthContext } from '../../contexts/AuthContext'
 import styles from './ImagePage.module.css'
 import * as imageServices from '../../services/imageService'
@@ -13,6 +14,7 @@ export function ImagePage() {
     const [isAsked, setIsAsked] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isOwner, setIsOwner] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const { user } = useContext(AuthContext)
     const { id } = useParams()
     const navigate = useNavigate()
@@ -40,15 +42,21 @@ export function ImagePage() {
     }
 
     const deleteHandler = () => {
+        setIsLoading(true)
         imageServices.deleteImage(id).then(() => {
+            setIsLoading(true)
             navigate('../../profile')
         })
     }
 
     return (
         <div className='container'>
+            {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id} closeHandler={closeHandler} /> : ''}
             {isAsked ? <ConfirmDelete deleteHandler={deleteHandler} closeHandler={closeHandler} /> : ''}
-            {isEditing ? <EditImage setDescription={setDescription} description={description} imageId={id} closeHandler={closeHandler} /> : ''}
+            {isLoading ?
+                <div className={styles['center-img']} >
+                    <LoadingSpinner />
+                </div> : ''}
             <div className={styles['image-data']}>
                 <img className={styles['image']} src={image} />
                 <div>
