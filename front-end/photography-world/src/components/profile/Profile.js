@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, createSearchParams } from 'react-router-dom'
 import { Gallery } from '../gallery/Gallery'
 import { Image } from '../image/Image'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -35,6 +35,13 @@ export function Profile() {
         })
 
         setUserImages(sortedList)
+
+        navigate({
+            pathname: '/profile',
+            search: createSearchParams({
+                order: 'description',
+            }).toString()
+        });
     }
 
     const orderByDateHandler = () => {
@@ -48,6 +55,13 @@ export function Profile() {
         })
 
         setUserImages(sortedList)
+
+        navigate({
+            pathname: '/profile',
+            search: createSearchParams({
+                order: 'date',
+            }).toString()
+        });
     }
 
     return (
