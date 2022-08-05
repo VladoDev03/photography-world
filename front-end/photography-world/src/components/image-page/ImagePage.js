@@ -37,7 +37,6 @@ export function ImagePage() {
     }
 
     const closeHandler = (e) => {
-        e.cancelBubble = true
         setIsAsked(false)
         setIsEditing(false)
     }
