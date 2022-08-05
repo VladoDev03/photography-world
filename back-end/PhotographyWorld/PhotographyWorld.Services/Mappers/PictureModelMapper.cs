@@ -17,7 +17,8 @@ namespace PhotographyWorld.Services.Mappers
                 Id = picture.Id,
                 Url = picture.Url,
                 Description = picture.Description,
-                User = picture.User.ToViewModel()
+                User = picture.User.ToViewModel(),
+                TimeCreated = picture.TimeCreated
             };
         }
     }

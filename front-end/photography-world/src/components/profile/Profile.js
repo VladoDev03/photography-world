@@ -27,8 +27,33 @@ export function Profile() {
         }
     }, [user])
 
+    const orderByDescriptionHandler = () => {
+        const sortedList = [...userImages].sort((a, b) => {
+            return a.description > b.description ? 1
+                : a.description < b.description ? -1
+                    : 0
+        })
+
+        setUserImages(sortedList)
+    }
+
+    const orderByDateHandler = () => {
+        const sortedList = [... userImages].sort((a, b) => {
+            const dateA = Date.parse(a.timeCreated)
+            const dateB = Date.parse(b.timeCreated)
+
+            return dateA > dateB ? 1
+                : dateA < dateB ? -1
+                    : 0
+        })
+
+        setUserImages(sortedList)
+    }
+
     return (
         <div>
+            <h3 onClick={orderByDateHandler}>Date</h3>
+            <h3 onClick={orderByDescriptionHandler}>Description</h3>
             <h1 className={styles['profile-title']}>{displayUser.username}</h1>
             <Gallery>{userImages.map(x => <Image key={x.id} id={x.id} src={x.url} content={x.description} />)}</Gallery>
         </div>

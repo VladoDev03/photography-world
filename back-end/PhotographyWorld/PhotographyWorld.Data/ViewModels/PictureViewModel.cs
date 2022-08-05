@@ -14,6 +14,8 @@ namespace PhotographyWorld.Data.ViewModels
 
         public string Description { get; set; }
 
+        public DateTime TimeCreated { get; set; }
+
         public UserViewModel User { get; set; }
     }
 }

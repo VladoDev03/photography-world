@@ -10,9 +10,11 @@ namespace PhotographyWorld.Data.Entities
     {
         public string Url { get; set; }
 
-        public string DownloadUrl { get; set; }
-
         public string Description { get; set; }
+
+        public DateTime TimeCreated { get; set; }
+
+        public string DownloadUrl { get; set; }
 
         public string PublicId { get; set; }
 
