@@ -33,7 +33,7 @@ export function Navbar() {
                     <li><NavLink className={setStyle} to="/">Home</NavLink></li>
                     {!user.token && <li><NavLink className={setStyle} to="/register">Register</NavLink></li>}
                     {!user.token && <li><NavLink className={setStyle} to="/login">Login</NavLink></li>}
-                    {user.token && <li><NavLink className={setStyle} to="/add">Share</NavLink></li>}
+                    {user.token && <li><NavLink className={setStyle} to="/share">Share</NavLink></li>}
                     {user.token && <li><NavLink className={setStyle} to="/logout">Logout</NavLink></li>}
                     {user.token && <li><NavLink className={setStyle} to="/profile"><span className={styles['username']}>{user.user.username}</span></NavLink></li>}
                 </ul>

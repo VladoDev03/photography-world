@@ -30,7 +30,7 @@ function App() {
                     </Route>
                     <Route element={<PrivateRoute />}>
                         <Route path='logout' element={<Logout />}></Route>
-                        <Route path='add' element={<AddImage />}></Route>
+                        <Route path='share' element={<AddImage />}></Route>
                         <Route path='profile' element={<Profile />}></Route>
                     </Route>
                 </Routes>

@@ -43,8 +43,9 @@ export function ImagePage() {
 
     const deleteHandler = () => {
         setIsLoading(true)
+        setIsAsked(false)
         imageServices.deleteImage(id).then(() => {
-            setIsLoading(true)
+            setIsLoading(false)
             navigate('../../profile')
         })
     }
