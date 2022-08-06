@@ -1,7 +1,6 @@
 import './App.css';
 import { Navbar } from './components/navbar/Navbar';
 import { Register } from './components/register/Register';
-import { EditImage } from './components/edit-image/EditImage';
 import { Routes, Route } from 'react-router-dom';
 import { Login } from './components/login/Login';
 import { AddImage } from './components/add-image/AddImage';

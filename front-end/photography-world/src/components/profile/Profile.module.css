@@ -3,3 +3,29 @@
     font-family: 'Times New Roman', Times, serif;
     color: rgb(228, 236, 124);
 }
+
+.criteria-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    gap: 25px;
+}
+
+.criteria,
+.sort-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+.criteria {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.criteria:hover {
+    font-style: italic;
+}
