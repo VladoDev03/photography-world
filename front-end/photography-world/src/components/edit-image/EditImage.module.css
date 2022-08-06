@@ -59,14 +59,6 @@
     font-size: 19px;
 }
 
-.description-main {
-    font-size: 19px;
-}
-
-.description-secondary {
-    font-size: 16px;
-}
-
 .edit-input {
     text-align: center;
     font-size: large;
@@ -75,4 +67,10 @@
     color: #1d3557;
     background-color: lightcyan;
     margin-right: 15px;
+}
+
+@media (max-width: 600px) {
+    .edit-input {
+        width: 300px;
+    }
 }
