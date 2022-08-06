@@ -29,3 +29,8 @@
 .criteria:hover {
     font-style: italic;
 }
+
+.active-criteria {
+    font-style: italic;
+    color: midnightblue;
+}
