@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Gallery } from '../gallery/Gallery'
 import { Image } from '../image/Image'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 import styles from './Profile.module.css'
 import * as userServices from '../../services/userServices'
 import * as pictureOrdering from '../../utils/pictureOrdering'
@@ -12,30 +13,36 @@ export function Profile() {
     const [userImages, setUserImages] = useState([])
     const { user } = useContext(AuthContext)
     const { id } = useParams()
+    const [order, setOrder] = useLocalStorage('type', { type: 'date' })
     const navigate = useNavigate()
 
     useEffect(() => {
+        let userId = ''
         if (id !== undefined) {
-            userServices.getUser(id).then(data => {
-                setDisplayUser(data)
-                setUserImages(pictureOrdering.orderByDate(data.pictures))
-            }).catch(() => navigate("/*"))
+            userId = id
         } else {
-            userServices.getUser(user.user.id).then(data => {
-                setDisplayUser(data)
-                setUserImages(pictureOrdering.orderByDate(data.pictures))
-            })
+            userId = user.user.id
         }
+        userServices.getUser(userId).then(data => {
+            setDisplayUser(data)
+            if (order.type === 'date') {
+                setUserImages(pictureOrdering.orderByDate(data.pictures))
+            } else if (order.type === 'description') {
+                setUserImages(pictureOrdering.orderByDescription(data.pictures))
+            }
+        }).catch(() => navigate("/*"))
     }, [user, id, navigate])
 
     const orderByDescriptionHandler = () => {
         const sortedList = pictureOrdering.orderByDescription(userImages)
         setUserImages(sortedList)
+        setOrder({ type: 'description' })
     }
 
     const orderByDateHandler = () => {
         const sortedList = pictureOrdering.orderByDate(userImages)
         setUserImages(sortedList)
+        setOrder({ type: 'date' })
     }
 
     return (
