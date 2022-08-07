@@ -53,7 +53,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy
-                            .WithOrigins("https://photography-world-81449.web.app")
+                            .WithOrigins("https://photography-world-81449.web.app", "http://localhost:3000")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                       });
