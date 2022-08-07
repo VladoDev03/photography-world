@@ -26,7 +26,6 @@ export function Profile() {
         }
         setOrder({ type: orderFromUrl })
         setOrderParams({order: orderFromUrl})
-        setOrder({ type: orderFromUrl })
         let userId = ''
         if (id !== undefined) {
             userId = id
@@ -35,9 +34,9 @@ export function Profile() {
         }
         userServices.getUser(userId).then(data => {
             setDisplayUser(data)
-            if (order.type === 'date') {
+            if (orderFromUrl === 'date') {
                 setUserImages(pictureOrdering.orderByDate(data.pictures))
-            } else if (order.type === 'description') {
+            } else if (orderFromUrl === 'description') {
                 setUserImages(pictureOrdering.orderByDescription(data.pictures))
             }
             setIsLoading(false)
