@@ -15,7 +15,7 @@ export async function getImageById(imageUrl) {
 }
 
 export async function uploadImage(imageData) {
-    const response = await fetch('https://localhost:7211/api/pictures', {
+    const response = await fetch('https://photography-world.herokuapp.com/api/pictures', {
         method: 'POST',
         body: imageData
     })
