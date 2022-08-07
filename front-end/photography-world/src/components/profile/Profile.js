@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { Gallery } from '../gallery/Gallery'
 import { Image } from '../image/Image'
 import { LoadingSpinner } from '../loading-spinner/LoadingSpinner'
@@ -16,9 +16,17 @@ export function Profile() {
     const { user } = useContext(AuthContext)
     const { id } = useParams()
     const [order, setOrder] = useLocalStorage('ordering', { type: 'date' })
+    const [orderParams, setOrderParams] = useSearchParams()
     const navigate = useNavigate()
 
     useEffect(() => {
+        let orderFromUrl = orderParams.get('order')
+        if (!orderFromUrl) {
+            orderFromUrl = order.type
+        }
+        setOrder({ type: orderFromUrl })
+        setOrderParams({order: orderFromUrl})
+        setOrder({ type: orderFromUrl })
         let userId = ''
         if (id !== undefined) {
             userId = id
@@ -34,7 +42,7 @@ export function Profile() {
             }
             setIsLoading(false)
         }).catch(() => navigate("/*"))
-    }, [user, id, order, navigate])
+    }, [user, id, navigate])
 
     const orderByDescriptionHandler = () => {
         const sortedList = pictureOrdering.orderByDescription(userImages)
