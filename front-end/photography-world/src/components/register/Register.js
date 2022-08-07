@@ -64,7 +64,6 @@ export function Register() {
 
         authService.register(userData)
             .then(data => {
-                userLogin(data)
                 if (!data.message) {
                     navigate('/login')
                 }

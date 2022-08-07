@@ -51,16 +51,18 @@ namespace PhotographyWorld.Server.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginUserBindingModel request)
         {
+            string errorMessage = "Wrong username or password";
+
             if (!userServices.IsExisting(request.Username))
             {
-                return BadRequest(new { Message = "This user does not exist." });
+                return BadRequest(new { Message = errorMessage });
             }
 
             User user = userServices.GetByUsername(request.Username);
 
             if (!userServices.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return BadRequest(new { Message = "Wrong password." });
+                return BadRequest(new { Message = errorMessage });
             }
 
             string token = configuration.GetSection("AppSettings:Token").Value;
