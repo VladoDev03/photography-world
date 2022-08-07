@@ -170,10 +170,8 @@ input:disabled:hover {
   text-decoration: underline;
 }
 
-/* .error-message {
-  position: absolute;
-  top: 50px;
+.error-message {
   color: crimson;
   font-weight: bold;
   font-family: 'Times New Roman', Times, serif;
-} */
+}

@@ -75,39 +75,37 @@ export function Register() {
     }
 
     return (
-        <>
-            {/* {errors.usernameLength ? <span className='error-message'>Username must be at least 3 characters long</span> : ''} */}
-            {/* {errors.passwordLength ? <span className='error-message'>Password must be at least 7 symbols long</span> : ''} */}
-            {/* {errors.passwordUpper ? <span className='error-message'>Password must contain at least one upper case letter</span> : ''} */}
-            {/* {errors.passwordLower ? <span className='error-message'>Password must contain at least one lower case letter</span> : ''} */}
-            {/* {errors.passwordSymbol ? <span className='error-message'>Password must contain at least one symbol</span> : ''} */}
-            {/* {errors.passwordNumber ? <span className='error-message'>Password must contain at least one digit</span> : ''} */}
-            {/* {errors.passwordsMatch ? <span className='error-message'>Passwords must match</span> : ''} */}
-            {/* {responseErrors.existingUser} */}
-            <div className='center'>
-                <h1>Register</h1>
-                <form method="post" onSubmit={submitHandler}>
-                    <div className='text-field'>
-                        <input name="username" type="text" value={values.username} onChange={changeHandler} onBlur={usernameValidate} required />
-                        <label htmlFor="username">Username</label>
-                        <span className="blue-underline"></span>
-                    </div>
-                    <div className='text-field'>
-                        <input name="password" type="password" value={values.password} onChange={changeHandler} onBlur={passwordValidate} required />
-                        <label htmlFor="password">Password</label>
-                        <span className="blue-underline"></span>
-                    </div>
-                    <div className='text-field'>
-                        <input name="confirmPassword" type="password" value={values.confirmPassword} onChange={changeHandler} onBlur={confirmPasswordValidate} required />
-                        <label htmlFor="confirmPassword">Confirm Password</label>
-                        <span className="blue-underline"></span>
-                    </div>
-                    <input type="submit" value="Register" disabled={Object.values(errors).some(x => x)} />
-                    <div className='signup-link'>
-                        Already have an account? <Link to="/login">Login</Link>
-                    </div>
-                </form>
-            </div>
-        </>
+        <div className='center'>
+            <h1>Register</h1>
+            <form method="post" onSubmit={submitHandler}>
+                <div className='text-field'>
+                    <input name="username" type="text" value={values.username} onChange={changeHandler} onBlur={usernameValidate} required />
+                    <label htmlFor="username">Username</label>
+                    <span className="blue-underline"></span>
+                </div>
+                <div className='text-field'>
+                    <input name="password" type="password" value={values.password} onChange={changeHandler} onBlur={passwordValidate} required />
+                    <label htmlFor="password">Password</label>
+                    <span className="blue-underline"></span>
+                </div>
+                <div className='text-field'>
+                    <input name="confirmPassword" type="password" value={values.confirmPassword} onChange={changeHandler} onBlur={confirmPasswordValidate} required />
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <span className="blue-underline"></span>
+                </div>
+                <input type="submit" value="Register" disabled={Object.values(errors).some(x => x)} />
+            </form>
+            <p className='error-message'>{errors.usernameLength ? 'Username must be at least 3 characters long' : ''}</p>
+            <p className='error-message'>{errors.passwordLength ? 'Password must be at least 7 symbols long' : ''}</p>
+            <p className='error-message'>{errors.passwordUpper ? 'Password must contain at least one upper case letter' : ''}</p>
+            <p className='error-message'>{errors.passwordLower ? 'Password must contain at least one lower case letter' : ''}</p>
+            <p className='error-message'>{errors.passwordSymbol ? 'Password must contain at least one symbol' : ''}</p>
+            <p className='error-message'>{errors.passwordNumber ? 'Password must contain at least one digit' : ''}</p>
+            <p className='error-message'>{errors.passwordsMatch ? 'Passwords must match' : ''}</p>
+            <p className='error-message'>{responseErrors.existingUser}</p>
+            <div className='signup-link'>
+                    Already have an account? <Link to="/login">Login</Link>
+                </div>
+        </div>
     )
 }

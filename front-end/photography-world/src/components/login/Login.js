@@ -43,27 +43,26 @@ export function Login() {
     }
 
     return (
-        <>
-            {responseErrors.existingUser}
-            <div className='center'>
-                <h1>Login</h1>
-                <form method="post" onSubmit={submitHandler}>
-                    <div className='text-field'>
-                        <input name="username" type="text" value={values.username} onChange={changeHandler} required />
-                        <label htmlFor="username">Username</label>
-                        <span className="blue-underline"></span>
-                    </div>
-                    <div className='text-field'>
-                        <input name="password" type="password" value={values.password} onChange={changeHandler} required />
-                        <label htmlFor="password">Password</label>
-                        <span className="blue-underline"></span>
-                    </div>
-                    <input type="submit" value="Login" />
-                    <div className='signup-link'>
-                        Not having an account? <Link to="/register">Register</Link>
-                    </div>
-                </form>
+        <div className='center'>
+            <h1>Login</h1>
+            <form method="post" onSubmit={submitHandler}>
+                <div className='text-field'>
+                    <input name="username" type="text" value={values.username} onChange={changeHandler} required />
+                    <label htmlFor="username">Username</label>
+                    <span className="blue-underline"></span>
+                </div>
+                <div className='text-field'>
+                    <input name="password" type="password" value={values.password} onChange={changeHandler} required />
+                    <label htmlFor="password">Password</label>
+                    <span className="blue-underline"></span>
+                </div>
+                <input type="submit" value="Login" />
+
+            </form>
+            <p className="error-message">{responseErrors.existingUser}</p>
+            <div className='signup-link'>
+                Not having an account? <Link to="/register">Register</Link>
             </div>
-        </>
+        </div>
     )
 }
