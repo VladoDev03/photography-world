@@ -38,10 +38,12 @@ export function Login() {
                 <div className='text-field'>
                     <input name="username" type="text" value={values.username} onChange={changeHandler} required />
                     <label htmlFor="username">Username</label>
+                    <span></span>
                 </div>
                 <div className='text-field'>
                     <input name="password" type="password" value={values.password} onChange={changeHandler} required />
                     <label htmlFor="password">Password</label>
+                    <span></span>
                 </div>
                 <input type="submit" value="Login" />
                 <div className='signup-link'>

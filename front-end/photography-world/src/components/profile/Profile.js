@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import styles from './Profile.module.css'
 import * as userServices from '../../services/userServices'
-import * as pictureOrdering from '../../utils/pictureOrdering'
+import * as pictureOrdering from '../../utils/sorting/pictureOrdering'
 
 export function Profile() {
     const [displayUser, setDisplayUser] = useState({})
