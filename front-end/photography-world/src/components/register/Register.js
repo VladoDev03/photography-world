@@ -93,7 +93,7 @@ export function Register() {
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <span></span>
                 </div>
-                <input type="submit" value="Register" />
+                <input type="submit" value="Register" disabled={Object.values(errors).some(x => x)} />
                 <div className='signup-link'>
                     Already have an account? <Link to="/login">Login</Link>
                 </div>

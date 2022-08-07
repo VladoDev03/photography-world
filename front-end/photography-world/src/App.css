@@ -148,6 +148,12 @@ input[type=submit]:hover {
   border-color: #2691d9;
 }
 
+input:disabled,
+input:disabled:hover {
+  background-color: #a5bdce;
+  border-color: #a5bdce;
+}
+
 .signup-link {
   margin: 30px 0;
   text-align: center;
