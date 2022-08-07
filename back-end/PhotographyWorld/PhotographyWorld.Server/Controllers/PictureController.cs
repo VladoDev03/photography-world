@@ -58,7 +58,7 @@ namespace PhotographyWorld.Server.Controllers
             picture.DownloadUrl = cloudinaryServices.GetDownloadLink(imageData[0]);
             picture.IsDownloadable = true;
             picture.Description = content.Comment;
-            picture.TimeCreated = DateTime.Now;
+            //picture.TimeCreated = DateTime.Now;
 
             return Created("", pictureServices.Create(picture));
         }
