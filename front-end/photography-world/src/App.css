@@ -99,7 +99,7 @@ body::-webkit-scrollbar-thumb {
   transition: 0.5s;
 }
 
-.center form .text-field span::before {
+.center form .text-field .blue-underline::before {
   content: "";
   position: absolute;
   top: 40px;
@@ -116,8 +116,8 @@ body::-webkit-scrollbar-thumb {
   color: #2691d9;
 }
 
-.center form .text-field input:focus~label~span::before,
-.center form .text-field input:valid~label~span::before {
+.center form .text-field input:focus~label~.blue-underline::before,
+.center form .text-field input:valid~label~.blue-underline::before {
   width: 100%;
 }
 
