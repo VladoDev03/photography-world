@@ -104,8 +104,8 @@ export function Register() {
             <p className='error-message'>{errors.passwordsMatch ? 'Passwords must match' : ''}</p>
             <p className='error-message'>{responseErrors.existingUser}</p>
             <div className='signup-link'>
-                    Already have an account? <Link to="/login">Login</Link>
-                </div>
+                Already have an account? <Link to="/login">Login</Link>
+            </div>
         </div>
     )
 }
