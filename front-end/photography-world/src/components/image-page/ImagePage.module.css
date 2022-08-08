@@ -62,6 +62,11 @@
     transform: translate(-50%, -50%);
 }
 
+.username-text {
+    color: black;
+    text-decoration: none;
+}
+
 @media (max-width: 600px) {
     .image-data {
         display: grid;

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ConfirmDelete } from '../confirm-delete/ConfirmDelete'
 import { EditImage } from "../edit-image/EditImage"
 import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
@@ -10,7 +10,7 @@ import * as imageServices from '../../services/imageService'
 export function ImagePage() {
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
-    const [username, setUsername] = useState('')
+    const [userDetails, setUserDetails] = useState('')
     const [isAsked, setIsAsked] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isOwner, setIsOwner] = useState(false)
@@ -23,7 +23,7 @@ export function ImagePage() {
         imageServices.getImageById(id).then(data => {
             setImage(data.url)
             setDescription(data.description)
-            setUsername(data.user.username)
+            setUserDetails({userId: data.user.id, username: data.user.username})
             setIsOwner(data.user.id === user.user.id)
         })
     }, [])
@@ -63,7 +63,7 @@ export function ImagePage() {
                 <div>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
-                        {username}
+                        <Link className={styles['username-text']} to={`../user/${userDetails.userId}`}>{userDetails.username}</Link>
                     </p>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Description: </span>
