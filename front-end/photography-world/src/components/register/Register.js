@@ -1,13 +1,11 @@
-import { useState, useContext, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Link } from 'react-router-dom'
-import { AuthContext } from "../../contexts/AuthContext";
 import * as authService from '../../services/authService'
 import * as registerValidation from '../../utils/validations/registerValidation'
 
 export function Register() {
     const navigate = useNavigate()
-    const { userLogin } = useContext(AuthContext)
     const [errors, setErrors] = useState({})
     const [responseErrors, setResponseErrors] = useState({})
 
