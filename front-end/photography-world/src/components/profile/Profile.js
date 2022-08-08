@@ -25,7 +25,7 @@ export function Profile() {
             orderFromUrl = order.type
         }
         setOrder({ type: orderFromUrl })
-        setOrderParams({order: orderFromUrl})
+        setOrderParams({order: orderFromUrl}, {replace: true})
         let userId = ''
         if (id !== undefined) {
             userId = id
