@@ -20,7 +20,6 @@ export function Profile() {
     const [order, setOrder] = useLocalStorage('ordering', { type: 'date' })
     const [orderParams, setOrderParams] = useSearchParams()
     const navigate = useNavigate()
-    const [storedImages, setStoredImages] = useLocalStorage('images', [])
 
     useEffect(() => {
         let orderFromUrl = orderParams.get('order')
@@ -51,28 +50,23 @@ export function Profile() {
     const orderByDescriptionHandler = () => {
         const sortedList = pictureOrdering.orderByDescription(userImages)
         setUserImages(sortedList)
-        setPaginationIndex(sortedList)
-        setImages(sortedList)
         setOrder({ type: 'description' })
-        setStoredImages(sortedList)
     }
 
     const orderByDateHandler = () => {
         const sortedList = pictureOrdering.orderByDate(userImages)
         setUserImages(sortedList)
-        setPaginationIndex(sortedList)
-        setImages(sortedList)
         setOrder({ type: 'date' })
-        setStoredImages(sortedList)
     }
 
     const setPaginationIndex = (userImages) => {
-        const paginationImages = []
+        let paginationImages = []
 
         for (let i = 0; i < userImages.length; i++) {
             paginationImages.push({
                 url: userImages[i].url,
                 description: userImages[i].description,
+                imageId: userImages[i].id,
                 userId: user.user.id,
                 username: user.user.username
             })

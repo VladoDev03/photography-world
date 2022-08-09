@@ -11,7 +11,7 @@ import * as imageServices from '../../services/imageService'
 export function ImagePage() {
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
-    const [userDetails, setUserDetails] = useState('')
+    const [userDetails, setUserDetails] = useState({})
     const [isAsked, setIsAsked] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isOwner, setIsOwner] = useState(false)
@@ -34,20 +34,23 @@ export function ImagePage() {
         }
 
         if (id) {
-            imageServices.getImageById(id).then(data => {
-                setImage(data.url)
-                setDescription(data.description)
-                setUserDetails({ userId: data.user.id, username: data.user.username })
-                setIsOwner(data.user.id === user.user.id)
-            })
-            setOverviewParams({ overview: isOverview}, { replace: true })
+            imageServices.getImageById(id)
+                .then(data => {
+                    setImage(data.url)
+                    setDescription(data.description)
+                    setUserDetails({ userId: data.user.id, username: data.user.username })
+                    setIsOwner(data.user.id === user.user.id)
+                })
+            setOverviewParams({ overview: isOverview }, { replace: true })
         } else if (page) {
             const currentImage = images[page]
-            setImage(currentImage.url)
-            setDescription(currentImage.description)
-            setUserDetails({ userId: currentImage.userId, username: currentImage.username })
-            setIsOwner(currentImage.userId === user.user.id)
-            setOverviewParams({ overview: isOverview, page: page }, { replace: true })
+            imageServices.getImageById(currentImage.imageId)
+                .then(data => {
+                    setImage(data.url)
+                    setDescription(data.description)
+                    setUserDetails({ userId: data.user.id, username: data.user.username })
+                    setIsOwner(data.user.id === user.user.id)
+                })
         }
     }, [])
 
@@ -104,7 +107,7 @@ export function ImagePage() {
                 <div>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
-                        <Link className={styles['username-text']} to={`../user/${userDetails.userId}`}>{userDetails.username}</Link>
+                        <Link className={styles['username-text']} to={userDetails.userId === user.user.id ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
                     </p>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Description: </span>
