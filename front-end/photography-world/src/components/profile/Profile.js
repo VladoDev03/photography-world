@@ -4,6 +4,7 @@ import { Gallery } from '../gallery/Gallery'
 import { Image } from '../image/Image'
 import { LoadingSpinner } from '../loading-spinner/LoadingSpinner'
 import { AuthContext } from '../../contexts/AuthContext'
+import { UserImagesContext } from '../../contexts/UserImagesContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import styles from './Profile.module.css'
 import * as userServices from '../../services/userServices'
@@ -14,10 +15,12 @@ export function Profile() {
     const [displayUser, setDisplayUser] = useState({})
     const [userImages, setUserImages] = useState([])
     const { user } = useContext(AuthContext)
+    const { setImages } = useContext(UserImagesContext)
     const { id } = useParams()
     const [order, setOrder] = useLocalStorage('ordering', { type: 'date' })
     const [orderParams, setOrderParams] = useSearchParams()
     const navigate = useNavigate()
+    const [storedImages, setStoredImages] = useLocalStorage('images', [])
 
     useEffect(() => {
         let orderFromUrl = orderParams.get('order')
@@ -36,8 +39,10 @@ export function Profile() {
             setDisplayUser(data)
             if (orderFromUrl === 'date') {
                 setUserImages(pictureOrdering.orderByDate(data.pictures))
+                setPaginationIndex(pictureOrdering.orderByDate(data.pictures))
             } else if (orderFromUrl === 'description') {
                 setUserImages(pictureOrdering.orderByDescription(data.pictures))
+                setPaginationIndex(pictureOrdering.orderByDescription(data.pictures))
             }
             setIsLoading(false)
         }).catch(() => navigate("/*"))
@@ -46,13 +51,40 @@ export function Profile() {
     const orderByDescriptionHandler = () => {
         const sortedList = pictureOrdering.orderByDescription(userImages)
         setUserImages(sortedList)
+        setPaginationIndex(sortedList)
+        setImages(sortedList)
         setOrder({ type: 'description' })
+        setStoredImages(sortedList)
     }
 
     const orderByDateHandler = () => {
         const sortedList = pictureOrdering.orderByDate(userImages)
         setUserImages(sortedList)
+        setPaginationIndex(sortedList)
+        setImages(sortedList)
         setOrder({ type: 'date' })
+        setStoredImages(sortedList)
+    }
+
+    const setPaginationIndex = (userImages) => {
+        const paginationImages = []
+
+        for (let i = 0; i < userImages.length; i++) {
+            paginationImages.push({
+                url: userImages[i].url,
+                description: userImages[i].description,
+                userId: user.user.id,
+                username: user.user.username
+            })
+        }
+
+        if (order === 'date') {
+            paginationImages = pictureOrdering.orderByDate(paginationImages)
+        } else if (order === 'description') {
+            paginationImages = pictureOrdering.orderByDescription(paginationImages)
+        }
+
+        setImages(paginationImages)
     }
 
     return (
@@ -69,7 +101,7 @@ export function Profile() {
                             <li><Link onClick={orderByDescriptionHandler} className={`${styles['criteria']} ${order.type === 'description' ? styles['active-criteria'] : ''}`} to='?order=description' replace>Description</Link></li>
                         </ul>
                         <h1 className={styles['profile-title']}>{displayUser.username}</h1>
-                        <Gallery>{userImages.map(x => <Image key={x.id} id={x.id} src={x.url} content={x.description} />)}</Gallery>
+                        <Gallery>{userImages.map(x => <Image key={x.id} src={x.url} content={x.description} />)}</Gallery>
                     </>
             }
         </div>

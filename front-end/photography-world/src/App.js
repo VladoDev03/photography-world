@@ -12,10 +12,12 @@ import { NotFound } from './components/not-found/NotFound';
 import { PrivateRoute } from './components/private-route/PrivateRoute';
 import { PublicRoute } from './components/public-route/PublicRoute';
 import { AuthProvider } from './contexts/AuthContext'
+import { UserImagesContext, UserImagesProvider } from './contexts/UserImagesContext'
 
 function App() {
     return (
         <AuthProvider>
+            <UserImagesProvider>
             <div className='App'>
                 <Navbar />
                 <Routes>
@@ -23,6 +25,7 @@ function App() {
                     <Route path='/*' element={<NotFound />}></Route>
                     <Route path='user/:id' element={<Profile />}></Route>
                     <Route path='image/:id' element={<ImagePage />}></Route>
+                    <Route path='image' element={<ImagePage />}></Route>
                     <Route element={<PublicRoute />}>
                         <Route path='register' element={<Register />}></Route>
                         <Route path='login' element={<Login />}></Route>
@@ -34,6 +37,7 @@ function App() {
                     </Route>
                 </Routes>
             </div>
+            </UserImagesProvider>
         </AuthProvider>
     );
 }

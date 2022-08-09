@@ -13,8 +13,8 @@ export function orderByDate(pictures) {
 
 export function orderByDescription(pictures) {
     const orderedList = [...pictures].sort((a, b) => {
-        return a.description > b.description ? 1
-            : a.description < b.description ? -1
+        return a.description.toLowerCase() > b.description.toLowerCase() ? 1
+            : a.description.toLowerCase() < b.description.toLowerCase() ? -1
                 : 0
     })
 

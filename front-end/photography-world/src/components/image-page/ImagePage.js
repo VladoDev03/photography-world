@@ -4,6 +4,7 @@ import { ConfirmDelete } from '../confirm-delete/ConfirmDelete'
 import { EditImage } from "../edit-image/EditImage"
 import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
 import { AuthContext } from '../../contexts/AuthContext'
+import { UserImagesContext } from '../../contexts/UserImagesContext'
 import styles from './ImagePage.module.css'
 import * as imageServices from '../../services/imageService'
 
@@ -16,26 +17,38 @@ export function ImagePage() {
     const [isOwner, setIsOwner] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [isOverviewOpen, setIsOverviewOpen] = useState(false)
+    const [currentPage, setCurrentPage] = useState(0)
     const { user } = useContext(AuthContext)
+    const { images } = useContext(UserImagesContext)
     const { id } = useParams()
     const [overviewParams, setOverviewParams] = useSearchParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         let isOverview = overviewParams.get('overview') || 'false'
+        const page = overviewParams.get('page')
+        setCurrentPage(page)
 
         if (isOverview === 'true') {
             setIsOverviewOpen(true)
         }
 
-        setOverviewParams({ overview: isOverview }, { replace: true })
-
-        imageServices.getImageById(id).then(data => {
-            setImage(data.url)
-            setDescription(data.description)
-            setUserDetails({ userId: data.user.id, username: data.user.username })
-            setIsOwner(data.user.id === user.user.id)
-        })
+        if (id) {
+            imageServices.getImageById(id).then(data => {
+                setImage(data.url)
+                setDescription(data.description)
+                setUserDetails({ userId: data.user.id, username: data.user.username })
+                setIsOwner(data.user.id === user.user.id)
+            })
+            setOverviewParams({ overview: isOverview}, { replace: true })
+        } else if (page) {
+            const currentImage = images[page]
+            setImage(currentImage.url)
+            setDescription(currentImage.description)
+            setUserDetails({ userId: currentImage.userId, username: currentImage.username })
+            setIsOwner(currentImage.userId === user.user.id)
+            setOverviewParams({ overview: isOverview, page: page }, { replace: true })
+        }
     }, [])
 
     const openConfirmation = () => {
@@ -51,11 +64,6 @@ export function ImagePage() {
         setIsEditing(false)
     }
 
-    const closeOverviewHandler = () => {
-        setIsOverviewOpen(false)
-        setOverviewParams({ overview: false }, { replace: true })
-    }
-
     const deleteHandler = () => {
         setIsLoading(true)
         setIsAsked(false)
@@ -67,7 +75,20 @@ export function ImagePage() {
 
     const imgClickHandler = () => {
         setIsOverviewOpen(true)
-        setOverviewParams({ overview: true }, { replace: true })
+        if (currentPage) {
+            setOverviewParams({ overview: true, page: currentPage }, { replace: true })
+        } else {
+            setOverviewParams({ overview: true }, { replace: true })
+        }
+    }
+
+    const closeOverviewHandler = () => {
+        setIsOverviewOpen(false)
+        if (currentPage) {
+            setOverviewParams({ overview: false, page: currentPage }, { replace: true })
+        } else {
+            setOverviewParams({ overview: false }, { replace: true })
+        }
     }
 
     return (

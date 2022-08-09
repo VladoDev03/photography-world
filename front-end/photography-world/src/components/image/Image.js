@@ -1,11 +1,30 @@
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserImagesContext } from '../../contexts/UserImagesContext'
 import styles from './Image.module.css'
 
 export function Image(props) {
     const navigate = useNavigate()
+    const { images } = useContext(UserImagesContext)
 
     const clickHandler = () => {
-        navigate(`../image/${props.id}`)
+        let index = 0
+        
+        for (let i = 0; i < images.length; i++) {
+            if (images[i].url === props.src) {
+                index = i
+            }
+        }
+
+        let urlToNavigate
+
+        if (props.id) {
+            urlToNavigate = `../image/${props.id}`
+        } else {
+            urlToNavigate = `../image?page=${index}`
+        }
+        
+        navigate(urlToNavigate)
     }
 
     return (
