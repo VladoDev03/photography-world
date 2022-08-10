@@ -18,6 +18,7 @@ export function ImagePage() {
     const [isLoading, setIsLoading] = useState(false)
     const [isOverviewOpen, setIsOverviewOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(0)
+    const [isPageButtonActive, setIsPageButtonActive] = useState({ isDecrementDisabled: false, isIncrementDisabled: false })
     const { user } = useContext(AuthContext)
     const { images } = useContext(UserImagesContext)
     const { id } = useParams()
@@ -29,6 +30,18 @@ export function ImagePage() {
 
         const page = overviewParams.get('page')
         setCurrentPage(page)
+
+        if (page === '0') {
+            setIsPageButtonActive({
+                isDecrementDisabled: true,
+                isIncrementDisabled: false
+            })
+        } else if (parseInt(page) === images.length - 1) {
+            setIsPageButtonActive({
+                isDecrementDisabled: false,
+                isIncrementDisabled: true
+            })
+        }
 
         if (isOverview === 'true') {
             setIsOverviewOpen(true)
@@ -93,12 +106,36 @@ export function ImagePage() {
     }
 
     const incrementPage = () => {
+        if (parseInt(currentPage) + 1 === images.length - 1) {
+            setIsPageButtonActive({
+                isDecrementDisabled: false,
+                isIncrementDisabled: true
+            })
+        } else {
+            setIsPageButtonActive({
+                isDecrementDisabled: false,
+                isIncrementDisabled: false
+            })
+        }
+        
         setCurrentPage(oldState => parseInt(oldState) + 1)
         setOverviewParams({ overview: isOverviewOpen, page: parseInt(currentPage) + 1 }, { replace: true })
         setImage(images[parseInt(currentPage) + 1].url)
     }
 
     const decrementPage = () => {
+        if (parseInt(currentPage) === 1) {
+            setIsPageButtonActive({
+                isDecrementDisabled: true,
+                isIncrementDisabled: false
+            })
+        } else {
+            setIsPageButtonActive({
+                isDecrementDisabled: false,
+                isIncrementDisabled: false
+            })
+        }
+
         setCurrentPage(oldState => oldState - 1)
         setOverviewParams({ overview: isOverviewOpen, page: currentPage - 1 }, { replace: true })
         setImage(images[currentPage - 1].url)
@@ -131,10 +168,10 @@ export function ImagePage() {
                 <div onClick={closeOverviewHandler} className={styles['overview-container']}>
                     <img onClick={e => e.stopPropagation()} className={styles['image-overview']} src={image} />
                 </div> : ''}
-            {!id ? <button onClick={decrementPage} className={`${styles['button']} ${styles['page-button']}`}>-</button> : ''}
+            {!id ? <button onClick={decrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isDecrementDisabled}>-</button> : ''}
             {isOwner ? <button onClick={openConfirmation} className={`${styles['button']} ${styles['delete-button']}`}>Delete</button> : ''}
             {isOwner ? <button onClick={openEdit} className={`${styles['button']} ${styles['edit-button']}`}>Edit</button> : ''}
-            {!id ? <button onClick={incrementPage} className={`${styles['button']} ${styles['page-button']}`}>+</button> : ''}
+            {!id ? <button onClick={incrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isIncrementDisabled}>+</button> : ''}
         </div>
     )
 }
