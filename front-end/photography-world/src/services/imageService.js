@@ -1,4 +1,4 @@
-const getUrl = 'https://localhost:7211/api/pictures'
+const getUrl = 'https://photography-world.herokuapp.com/api/pictures'
 
 export async function getImages() {
     const response = await fetch(getUrl)
@@ -15,7 +15,7 @@ export async function getImageById(imageUrl) {
 }
 
 export async function uploadImage(imageData) {
-    const response = await fetch('https://localhost:7211/api/pictures', {
+    const response = await fetch('https://photography-world.herokuapp.com/api/pictures', {
         method: 'POST',
         body: imageData
     })
@@ -26,7 +26,7 @@ export async function uploadImage(imageData) {
 }
 
 export async function deleteImage(imageId) {
-    const response = await fetch(`https://localhost:7211/api/pictures/${imageId}`, {
+    const response = await fetch(`https://photography-world.herokuapp.com/pictures/${imageId}`, {
         method: 'DELETE'
     })
 
@@ -36,7 +36,7 @@ export async function deleteImage(imageId) {
 }
 
 export async function editImage({imageId, description}) {
-    const response = await fetch(`https://localhost:7211/api/pictures/${imageId}`, {
+    const response = await fetch(`https://photography-world.herokuapp.com/api/pictures/${imageId}`, {
         method: 'PUT',
         body: JSON.stringify({description}),
         headers: {
