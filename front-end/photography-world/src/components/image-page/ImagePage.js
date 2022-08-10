@@ -104,7 +104,7 @@ export function ImagePage() {
                 </div> : ''}
             <div className={styles['image-data']}>
                 <img className={styles['image']} src={image} onClick={imgClickHandler} />
-                <div>
+                <div className={styles['content-container']}>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
                         <Link className={styles['username-text']} to={userDetails.userId === user.user.id ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>

@@ -16,6 +16,7 @@ export function AddImageForm({submitHandler, descriptionHandler, pictureHandler,
             <div className='text-field'>
                 <input id="comment" type="text" name="comment" value={description} onChange={descriptionHandler} onBlur={descriptionValidate} required />
                 <label htmlFor="comment">Comment</label>
+                <span className="blue-underline"></span>
             </div>
             <div>
                 <label className={styles['image']} htmlFor="picture">{!isChosen ? 'Select' : 'Change'} Image</label>

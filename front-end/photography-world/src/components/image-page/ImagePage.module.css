@@ -13,7 +13,7 @@
 
 .image,
 .content {
-    max-width: 500px;
+    max-width: 750px;
     max-height: 500px;
 }
 
@@ -21,10 +21,21 @@
     background-color: brown;
 }
 
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
 .content {
     font-size: 50px;
     font-style: italic;
     font-weight: bold;
+    word-wrap: break-word;
 }
 
 .button {
