@@ -69,7 +69,8 @@ export function Profile() {
                 url: userImages[i].url,
                 description: userImages[i].description,
                 imageId: userImages[i].id,
-                userId: id || user.user.id
+                userId: id || user.user.id,
+                timeCreated : userImages[i].timeCreated
             })
         }
 

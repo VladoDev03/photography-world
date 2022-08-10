@@ -28,7 +28,14 @@ export function ImagePage() {
     useEffect(() => {
         let isOverview = overviewParams.get('overview') || 'false'
 
-        const page = overviewParams.get('page')
+        let page = overviewParams.get('page')
+
+        if (parseInt(page) < 0) {
+            page = '0'
+        } else if (parseInt(page) >= images.length) {
+            page = images.length - 1
+        }
+
         setCurrentPage(page)
 
         if (page === '0') {
