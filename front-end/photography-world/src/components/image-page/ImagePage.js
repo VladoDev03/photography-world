@@ -37,6 +37,7 @@ export function ImagePage() {
         if (id) {
             imageServices.getImageById(id)
                 .then(data => {
+                    console.log(data.user)
                     setImage(data.url)
                     setDescription(data.description)
                     setUserDetails({ userId: data.user.id, username: data.user.username })
@@ -100,6 +101,18 @@ export function ImagePage() {
         }
     }
 
+    const incrementPage = () => {
+        setCurrentPage(oldState => parseInt(oldState) + 1)
+        setOverviewParams({ overview: isOverviewOpen, page: parseInt(currentPage) + 1 }, { replace: true })
+        setImage(images[parseInt(currentPage) + 1].url)
+    }
+
+    const decrementPage = () => {
+        setCurrentPage(oldState => oldState - 1)
+        setOverviewParams({ overview: isOverviewOpen, page: currentPage - 1 }, { replace: true })
+        setImage(images[currentPage - 1].url)
+    }
+
     return (
         <div className='container'>
             {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id} closeHandler={closeHandler} /> : ''}
@@ -114,7 +127,7 @@ export function ImagePage() {
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
                         {user !== {} ?
-                            <Link className={styles['username-text']} to={userDetails.userId ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
+                            <Link className={styles['username-text']} to={!id ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
                             : ''}
                     </p>
                     <p className={styles['content']}>
@@ -127,8 +140,10 @@ export function ImagePage() {
                 <div onClick={closeOverviewHandler} className={styles['overview-container']}>
                     <img onClick={e => e.stopPropagation()} className={styles['image-overview']} src={image} />
                 </div> : ''}
+            {!id ? <button onClick={decrementPage} className={`${styles['button']} ${styles['page-button']}`}>-</button> : ''}
             {isOwner ? <button onClick={openConfirmation} className={`${styles['button']} ${styles['delete-button']}`}>Delete</button> : ''}
             {isOwner ? <button onClick={openEdit} className={`${styles['button']} ${styles['edit-button']}`}>Edit</button> : ''}
+            {!id ? <button onClick={incrementPage} className={`${styles['button']} ${styles['page-button']}`}>+</button> : ''}
         </div>
     )
 }
