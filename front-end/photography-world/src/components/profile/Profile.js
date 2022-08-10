@@ -50,12 +50,14 @@ export function Profile() {
     const orderByDescriptionHandler = () => {
         const sortedList = pictureOrdering.orderByDescription(userImages)
         setUserImages(sortedList)
+        setImages(sortedList)
         setOrder({ type: 'description' })
     }
 
     const orderByDateHandler = () => {
         const sortedList = pictureOrdering.orderByDate(userImages)
         setUserImages(sortedList)
+        setImages(sortedList)
         setOrder({ type: 'date' })
     }
 

@@ -26,6 +26,7 @@ export function ImagePage() {
 
     useEffect(() => {
         let isOverview = overviewParams.get('overview') || 'false'
+
         const page = overviewParams.get('page')
         setCurrentPage(page)
 
@@ -44,13 +45,14 @@ export function ImagePage() {
             setOverviewParams({ overview: isOverview }, { replace: true })
         } else if (page) {
             const currentImage = images[page]
-            imageServices.getImageById(currentImage.imageId)
+            imageServices.getImageById(currentImage.imageId || currentImage.id)
                 .then(data => {
                     setImage(data.url)
                     setDescription(data.description)
                     setUserDetails({ userId: data.user.id, username: data.user.username })
                     setIsOwner(data.user.id === user.user.id)
                 })
+            setOverviewParams({ overview: isOverview, page: page }, { replace: true })
         }
     }, [])
 
