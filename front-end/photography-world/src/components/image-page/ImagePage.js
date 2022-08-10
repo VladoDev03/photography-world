@@ -37,7 +37,6 @@ export function ImagePage() {
         if (id) {
             imageServices.getImageById(id)
                 .then(data => {
-                    console.log(data.user)
                     setImage(data.url)
                     setDescription(data.description)
                     setUserDetails({ userId: data.user.id, username: data.user.username })
@@ -85,20 +84,12 @@ export function ImagePage() {
 
     const imgClickHandler = () => {
         setIsOverviewOpen(true)
-        if (currentPage) {
-            setOverviewParams({ overview: true, page: currentPage }, { replace: true })
-        } else {
-            setOverviewParams({ overview: true }, { replace: true })
-        }
+        setOverviewParams({ overview: true, page: currentPage }, { replace: true })
     }
 
     const closeOverviewHandler = () => {
         setIsOverviewOpen(false)
-        if (currentPage) {
-            setOverviewParams({ overview: false, page: currentPage }, { replace: true })
-        } else {
-            setOverviewParams({ overview: false }, { replace: true })
-        }
+        setOverviewParams({ overview: false, page: currentPage }, { replace: true })
     }
 
     const incrementPage = () => {
