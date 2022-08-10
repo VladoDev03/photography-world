@@ -40,7 +40,11 @@ export function ImagePage() {
                     setImage(data.url)
                     setDescription(data.description)
                     setUserDetails({ userId: data.user.id, username: data.user.username })
-                    setIsOwner(data.user.id === user.user.id)
+                    if (user.user) {
+                        setIsOwner(data.user.id === user.user.id)
+                    } else {
+                        setIsOwner(false)
+                    }
                 })
             setOverviewParams({ overview: isOverview }, { replace: true })
         } else if (page) {
@@ -109,7 +113,9 @@ export function ImagePage() {
                 <div className={styles['content-container']}>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
-                        <Link className={styles['username-text']} to={userDetails.userId === user.user.id ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
+                        {user !== {} ?
+                            <Link className={styles['username-text']} to={userDetails.userId ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
+                            : ''}
                     </p>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Description: </span>

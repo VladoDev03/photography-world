@@ -58,6 +58,12 @@
     background-color: deepskyblue;
 }
 
+.page-button {
+    background-color: coral;
+    font-size: 18px;
+    padding: 8px 24px;
+}
+
 .button:hover {
     cursor: pointer;
 }
