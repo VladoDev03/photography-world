@@ -38,7 +38,7 @@ export function Profile() {
             setDisplayUser(data)
             if (orderFromUrl === 'date') {
                 setUserImages(pictureOrdering.orderByDate(data.pictures))
-                setPaginationIndex(pictureOrdering.orderByDescription(data.pictures))
+                setPaginationIndex(pictureOrdering.orderByDate(data.pictures))
             } else if (orderFromUrl === 'description') {
                 setUserImages(pictureOrdering.orderByDescription(data.pictures))
                 setPaginationIndex(pictureOrdering.orderByDescription(data.pictures))
@@ -69,8 +69,7 @@ export function Profile() {
                 url: userImages[i].url,
                 description: userImages[i].description,
                 imageId: userImages[i].id,
-                userId: user.user.id || id,
-                username: user.user.username
+                userId: id || user.user.id
             })
         }
 

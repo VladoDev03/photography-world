@@ -154,8 +154,8 @@ export function ImagePage() {
                 <div className={styles['content-container']}>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
-                        {user !== {} ?
-                            <Link className={styles['username-text']} to={!id ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
+                        {user.user ?
+                            <Link className={styles['username-text']} to={userDetails.userId === user.user.id ? `../profile` : `../user/${userDetails.userId}`}>{userDetails.username}</Link>
                             : <Link className={styles['username-text']} to={`../user/${userDetails.userId}`}>{userDetails.username}</Link>}
                     </p>
                     <p className={styles['content']}>
