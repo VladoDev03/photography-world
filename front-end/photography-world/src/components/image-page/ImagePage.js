@@ -117,12 +117,22 @@ export function ImagePage() {
 
     const imgClickHandler = () => {
         setIsOverviewOpen(true)
-        setOverviewParams({ overview: true, page: currentPage }, { replace: true })
+
+        if (id) {
+            setOverviewParams({ overview: true }, { replace: true })
+        } else {
+            setOverviewParams({ overview: true, page: currentPage }, { replace: true })
+        }
     }
 
     const closeOverviewHandler = () => {
         setIsOverviewOpen(false)
-        setOverviewParams({ overview: false, page: currentPage }, { replace: true })
+        
+        if (id) {
+            setOverviewParams({ overview: false }, { replace: true })
+        } else {
+            setOverviewParams({ overview: false, page: currentPage }, { replace: true })
+        }
     }
 
     const incrementPage = () => {
