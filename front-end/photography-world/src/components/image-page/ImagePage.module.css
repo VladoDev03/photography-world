@@ -139,7 +139,11 @@
 
 .like-button {
     font-size: 35px;
-    color: red;
+    color: maroon;
+}
+
+.liked {
+    color: crimson;
 }
 
 @media (max-width: 600px) {

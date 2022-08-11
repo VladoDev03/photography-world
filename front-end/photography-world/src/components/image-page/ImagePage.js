@@ -5,6 +5,8 @@ import { EditImage } from "../edit-image/EditImage"
 import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
 import { AuthContext } from '../../contexts/AuthContext'
 import { UserImagesContext } from '../../contexts/UserImagesContext'
+import { FaHeart } from 'react-icons/fa';
+import { FaRegHeart } from 'react-icons/fa';
 import styles from './ImagePage.module.css'
 import * as imageServices from '../../services/imageService'
 import * as dateParser from '../../utils/parsers/dateParser'
@@ -193,7 +195,8 @@ export function ImagePage() {
                     <img className={styles['image']} src={image} onClick={imgClickHandler} />
                     <div className={styles['likes-container']}>
                         <p className={styles['likes']}>Likes: 10</p>
-                        <p className={styles['like-button']}>L</p>
+                        {isOwner || <p className={`${styles['like-button']} ${styles['liked']}`}><FaHeart /></p>}
+                        {/* <p className={styles['like-button']}><FaRegHeart /></p> */}
                     </div>
                 </div>
                 <div className={styles['content-container']}>
