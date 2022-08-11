@@ -1,3 +1,10 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .profile-title {
     font-style: italic;
     font-family: 'Times New Roman', Times, serif;
@@ -11,19 +18,24 @@
     justify-content: center;
     list-style: none;
     gap: 25px;
+    background-color: bisque;
+    width: 73%;
+    border-radius: 5px;
+    border: solid 2px;
+    border-color: white;
 }
 
 .criteria,
 .sort-title {
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
+    color: darkslateblue;
 }
 
 .criteria {
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
-    color: black;
 }
 
 .criteria:hover {
@@ -32,7 +44,7 @@
 
 .active-criteria {
     font-style: italic;
-    color: midnightblue;
+    color: crimson;
 }
 
 .center-img {

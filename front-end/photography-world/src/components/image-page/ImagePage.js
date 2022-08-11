@@ -94,7 +94,6 @@ export function ImagePage() {
     }, [])
 
     const getCurrentId = () => {
-        console.log(images.find(x => x.url === image))
         return images.find(x => x.url === image).imageId
     }
 
@@ -132,7 +131,7 @@ export function ImagePage() {
 
     const closeOverviewHandler = () => {
         setIsOverviewOpen(false)
-        
+
         if (id) {
             setOverviewParams({ overview: false }, { replace: true })
         } else {
@@ -152,7 +151,7 @@ export function ImagePage() {
                 isIncrementDisabled: false
             })
         }
-        
+
         setCurrentPage(oldState => parseInt(oldState) + 1)
         setOverviewParams({ overview: isOverviewOpen, page: parseInt(currentPage) + 1 }, { replace: true })
 
@@ -175,7 +174,7 @@ export function ImagePage() {
 
         setCurrentPage(oldState => oldState - 1)
         setOverviewParams({ overview: isOverviewOpen, page: currentPage - 1 }, { replace: true })
-        
+
         setImage(images[parseInt(currentPage) - 1].url)
         setDescription(images[parseInt(currentPage) - 1].description)
     }
