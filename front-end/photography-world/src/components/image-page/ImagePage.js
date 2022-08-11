@@ -7,11 +7,13 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { UserImagesContext } from '../../contexts/UserImagesContext'
 import styles from './ImagePage.module.css'
 import * as imageServices from '../../services/imageService'
+import * as dateParser from '../../utils/parsers/dateParser'
 
 export function ImagePage() {
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
     const [userDetails, setUserDetails] = useState({})
+    const [createdOn, setCreatedOn] = useState('')
     const [isAsked, setIsAsked] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isOwner, setIsOwner] = useState(false)
@@ -38,7 +40,12 @@ export function ImagePage() {
 
         setCurrentPage(page)
 
-        if (page === '0') {
+        if (page === '0' && parseInt(page) === images.length - 1) {
+            setIsPageButtonActive({
+                isDecrementDisabled: true,
+                isIncrementDisabled: true
+            })
+        } else if (page === '0') {
             setIsPageButtonActive({
                 isDecrementDisabled: true,
                 isIncrementDisabled: false
@@ -60,6 +67,7 @@ export function ImagePage() {
                     setImage(data.url)
                     setDescription(data.description)
                     setUserDetails({ userId: data.user.id, username: data.user.username })
+                    setCreatedOn(data.timeCreated)
                     if (user.user) {
                         setIsOwner(data.user.id === user.user.id)
                     } else {
@@ -74,7 +82,12 @@ export function ImagePage() {
                     setImage(data.url)
                     setDescription(data.description)
                     setUserDetails({ userId: data.user.id, username: data.user.username })
-                    setIsOwner(data.user.id === user.user.id)
+                    setCreatedOn(data.timeCreated)
+                    if (user.user) {
+                        setIsOwner(data.user.id === user.user.id)
+                    } else {
+                        setIsOwner(false)
+                    }
                 })
             setOverviewParams({ overview: isOverview, page: page }, { replace: true })
         }
@@ -168,6 +181,10 @@ export function ImagePage() {
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Description: </span>
                         {description}
+                    </p>
+                    <p className={styles['content']}>
+                        <span className={styles['property-name']}>Uploaded on: </span>
+                        {dateParser.parseDate(createdOn)}
                     </p>
                 </div>
             </div>
