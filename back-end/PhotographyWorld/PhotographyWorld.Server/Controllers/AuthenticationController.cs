@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhotographyWorld.Data.Entities;
+using PhotographyWorld.Data.ViewModels;
 using PhotographyWorld.Server.BindingModels.User;
 using PhotographyWorld.Services.Contracts;
+using PhotographyWorld.Services.Mappers;
 using PhotographyWorld.Services.Models;
 
 namespace PhotographyWorld.Server.Controllers
@@ -45,7 +47,9 @@ namespace PhotographyWorld.Server.Controllers
 
             userServices.Create(newUser);
 
-            return Ok(newUser);
+            UserViewModel result = newUser.ToViewModel();
+
+            return Ok(result);
         }
 
         [HttpPost("login")]
