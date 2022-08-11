@@ -189,7 +189,13 @@ export function ImagePage() {
                     <LoadingSpinner />
                 </div> : ''}
             <div className={styles['image-data']}>
-                <img className={styles['image']} src={image} onClick={imgClickHandler} />
+                <div className={styles['image-block']}>
+                    <img className={styles['image']} src={image} onClick={imgClickHandler} />
+                    <div className={styles['likes-container']}>
+                        <p className={styles['likes']}>Likes: 10</p>
+                        <p className={styles['like-button']}>L</p>
+                    </div>
+                </div>
                 <div className={styles['content-container']}>
                     <p className={styles['content']}>
                         <span className={styles['property-name']}>Photographer: </span>
