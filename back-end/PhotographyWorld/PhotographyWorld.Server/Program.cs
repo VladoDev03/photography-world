@@ -46,6 +46,7 @@ builder.Services.AddSingleton(cloudinaryConfiguration);
 builder.Services.AddScoped<IPictureServices, PictureServices>();
 builder.Services.AddScoped<ICloudinaryServices, CloudinaryServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ILikeService, LikeService>();
 
 builder.Services.AddCors(options =>
 {
