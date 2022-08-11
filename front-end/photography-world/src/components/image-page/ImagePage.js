@@ -93,6 +93,11 @@ export function ImagePage() {
         }
     }, [])
 
+    const getCurrentId = () => {
+        console.log(images.find(x => x.url === image))
+        return images.find(x => x.url === image).imageId
+    }
+
     const openConfirmation = () => {
         setIsAsked(true)
     }
@@ -109,7 +114,7 @@ export function ImagePage() {
     const deleteHandler = () => {
         setIsLoading(true)
         setIsAsked(false)
-        imageServices.deleteImage(id).then(() => {
+        imageServices.deleteImage(id || getCurrentId()).then(() => {
             setIsLoading(false)
             navigate('../../profile')
         })
@@ -177,7 +182,8 @@ export function ImagePage() {
 
     return (
         <div className='container'>
-            {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id} closeHandler={closeHandler} /> : ''}
+            {console.log(image.id)}
+            {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id || getCurrentId()} closeHandler={closeHandler} /> : ''}
             {isAsked ? <ConfirmDelete deleteHandler={deleteHandler} closeHandler={closeHandler} /> : ''}
             {isLoading ?
                 <div className={styles['center-img']} >
