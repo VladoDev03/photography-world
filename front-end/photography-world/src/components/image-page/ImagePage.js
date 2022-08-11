@@ -140,7 +140,9 @@ export function ImagePage() {
         
         setCurrentPage(oldState => parseInt(oldState) + 1)
         setOverviewParams({ overview: isOverviewOpen, page: parseInt(currentPage) + 1 }, { replace: true })
+
         setImage(images[parseInt(currentPage) + 1].url)
+        setDescription(images[parseInt(currentPage) + 1].description)
     }
 
     const decrementPage = () => {
@@ -158,7 +160,9 @@ export function ImagePage() {
 
         setCurrentPage(oldState => oldState - 1)
         setOverviewParams({ overview: isOverviewOpen, page: currentPage - 1 }, { replace: true })
-        setImage(images[currentPage - 1].url)
+        
+        setImage(images[parseInt(currentPage) - 1].url)
+        setDescription(images[parseInt(currentPage) - 1].description)
     }
 
     return (

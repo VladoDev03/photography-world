@@ -27,7 +27,7 @@ export function Profile() {
             orderFromUrl = order.type
         }
         setOrder({ type: orderFromUrl })
-        setOrderParams({order: orderFromUrl}, {replace: true})
+        setOrderParams({ order: orderFromUrl }, { replace: true })
         let userId = ''
         if (id !== undefined) {
             userId = id
@@ -70,7 +70,7 @@ export function Profile() {
                 description: userImages[i].description,
                 imageId: userImages[i].id,
                 userId: id || user.user.id,
-                timeCreated : userImages[i].timeCreated
+                timeCreated: userImages[i].timeCreated
             })
         }
 
@@ -90,15 +90,20 @@ export function Profile() {
                     <div className={styles['center-img']} >
                         <LoadingSpinner />
                     </div> :
-                    <>
-                        <ul className={styles['criteria-list']}>
-                            <li><h3 className={styles['sort-title']}>Order by:</h3></li>
-                            <li><Link onClick={orderByDateHandler} className={`${styles['criteria']} ${order.type === 'date' ? styles['active-criteria'] : ''}`} to='?order=date' replace>Date</Link></li>
-                            <li><Link onClick={orderByDescriptionHandler} className={`${styles['criteria']} ${order.type === 'description' ? styles['active-criteria'] : ''}`} to='?order=description' replace>Description</Link></li>
-                        </ul>
-                        <h1 className={styles['profile-title']}>{displayUser.username}</h1>
-                        <Gallery>{userImages.map(x => <Image key={x.id} src={x.url} content={x.description} />)}</Gallery>
-                    </>
+                    userImages.length > 0 ?
+                        <>
+                            <ul className={styles['criteria-list']}>
+                                <li><h3 className={styles['sort-title']}>Order by:</h3></li>
+                                <li><Link onClick={orderByDateHandler} className={`${styles['criteria']} ${order.type === 'date' ? styles['active-criteria'] : ''}`} to='?order=date' replace>Date</Link></li>
+                                <li><Link onClick={orderByDescriptionHandler} className={`${styles['criteria']} ${order.type === 'description' ? styles['active-criteria'] : ''}`} to='?order=description' replace>Description</Link></li>
+                            </ul>
+                            <h1 className={styles['profile-title']}>{displayUser.username}</h1>
+                            <Gallery>{userImages.map(x => <Image key={x.id} src={x.url} content={x.description} />)}</Gallery>
+                        </> :
+                        <div className={styles['no-images-container']}>
+                            <h1 className={styles['profile-title']}>{displayUser.username} <span className={styles['no-italics']}>haven't uploaded any images yet</span></h1>
+                            <h2 className={styles['home-description']}>You can visit the <Link to='/' className={styles['home-link']}>Home</Link> page to see all images that are available.</h2>
+                        </div>
             }
         </div>
     )

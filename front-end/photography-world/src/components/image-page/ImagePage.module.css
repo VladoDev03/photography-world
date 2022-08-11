@@ -36,6 +36,7 @@
     font-style: italic;
     font-weight: bold;
     word-wrap: break-word;
+    color: indigo;
 }
 
 .button {
@@ -74,6 +75,7 @@
 
 .property-name {
     font-size: 35px;
+    color: coral;
 }
 
 .center-img {
@@ -84,7 +86,7 @@
 }
 
 .username-text {
-    color: black;
+    color: darkgreen;
     text-decoration: none;
 }
 

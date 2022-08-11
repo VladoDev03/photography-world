@@ -41,3 +41,25 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.no-images-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50vh;
+}
+
+.no-italics {
+    font-style: normal;
+}
+
+.home-description {
+    color: brown;
+}
+
+.home-link {
+    font-style: italic;
+    color: coral;
+    text-decoration: none;
+}
