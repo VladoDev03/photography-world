@@ -31,18 +31,17 @@ export function Login() {
             password: values.password
         }
 
-        setIsLoading(true)
-
         authService.login(userData)
             .then(data => {
                 if (!data.message) {
+                    setIsLoading(true)
                     userLogin(data)
                     setIsLoading(false)
-                    navigate('/')
+                    navigate('/profile')
                 } else {
                     setResponseErrors(oldErrors => ({
                         ...oldErrors,
-                        ['existingUser']: data.message
+                        ['wrongUser']: data.message
                     }))
                 }
             }).catch()
@@ -69,7 +68,7 @@ export function Login() {
                     <input type="submit" value="Login" />
 
                 </form>
-                <p className="error-message">{responseErrors.existingUser}</p>
+                <p className="error-message">{responseErrors.wrongUser}</p>
                 <div className='signup-link'>
                     Not having an account? <Link to="/register">Register</Link>
                 </div>
