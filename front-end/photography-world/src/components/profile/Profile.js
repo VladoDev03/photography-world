@@ -101,8 +101,9 @@ export function Profile() {
                             <Gallery>{userImages.map(x => <Image key={x.id} src={x.url} content={x.description} />)}</Gallery>
                         </> :
                         <div className={styles['no-images-container']}>
-                            <h1 className={styles['profile-title']}>{displayUser.username} <span className={styles['no-italics']}>haven't uploaded any images yet</span></h1>
+                            <h1 className={styles['profile-title']}>{id ? displayUser.username : 'You'} <span className={styles['no-italics']}>haven't uploaded any images yet</span></h1>
                             <h2 className={styles['home-description']}>You can visit the <Link to='/' className={styles['home-link']}>Home</Link> page to see all images that are available.</h2>
+                            {!id && <h2 className={styles['home-description']}>Or you can <Link to='/share' className={styles['home-link']}>share</Link> one from here</h2>}
                         </div>
             }
         </div>

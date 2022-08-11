@@ -22,6 +22,19 @@ namespace PhotographyWorld.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("PhotographyWorld.Data.Entities.Like", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PictureId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "PictureId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("PhotographyWorld.Data.Entities.Picture", b =>
                 {
                     b.Property<string>("Id")

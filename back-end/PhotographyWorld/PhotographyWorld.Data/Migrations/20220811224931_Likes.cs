@@ -5,10 +5,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PhotographyWorld.Data.Migrations
 {
-    public partial class UserPictures : Migration
+    public partial class Likes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PictureId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => new { x.UserId, x.PictureId });
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -30,8 +42,9 @@ namespace PhotographyWorld.Data.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DownloadUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TimeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DownloadUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublicId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDownloadable = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -55,6 +68,9 @@ namespace PhotographyWorld.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Likes");
+
             migrationBuilder.DropTable(
                 name: "Pictures");
 

@@ -183,7 +183,6 @@ export function ImagePage() {
 
     return (
         <div className='container'>
-            {console.log(image.id)}
             {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id || getCurrentId()} closeHandler={closeHandler} /> : ''}
             {isAsked ? <ConfirmDelete deleteHandler={deleteHandler} closeHandler={closeHandler} /> : ''}
             {isLoading ?

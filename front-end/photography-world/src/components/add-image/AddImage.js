@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useContext } from "react"
 import { LoadingSpinner } from "../loading-spinner/LoadingSpinner"
 import { AddImageForm } from "../add-image-form/AddImageForm"
 import { AuthContext } from '../../contexts/AuthContext'

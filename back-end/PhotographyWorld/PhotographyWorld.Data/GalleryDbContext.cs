@@ -17,6 +17,8 @@ namespace PhotographyWorld.Data
 
         public DbSet<Picture> Pictures { get; set; }
 
+        public DbSet<Like> Likes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -25,6 +27,11 @@ namespace PhotographyWorld.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Like>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.PictureId });
+            });
         }
     }
 }

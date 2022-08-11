@@ -12,8 +12,8 @@ using PhotographyWorld.Data;
 namespace PhotographyWorld.Data.Migrations
 {
     [DbContext(typeof(GalleryDbContext))]
-    [Migration("20220805215900_PicturesDate")]
-    partial class PicturesDate
+    [Migration("20220811224931_Likes")]
+    partial class Likes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,19 @@ namespace PhotographyWorld.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("PhotographyWorld.Data.Entities.Like", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PictureId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "PictureId");
+
+                    b.ToTable("Likes");
+                });
 
             modelBuilder.Entity("PhotographyWorld.Data.Entities.Picture", b =>
                 {
