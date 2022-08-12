@@ -279,10 +279,11 @@ export function ImagePage() {
                 <div onClick={closeOverviewHandler} className={styles['overview-container']}>
                     <img onClick={e => e.stopPropagation()} className={styles['image-overview']} src={image} />
                 </div> : ''}
-            {!id ? <button onClick={decrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isDecrementDisabled}>-</button> : ''}
             {isOwner ? <button onClick={openConfirmation} className={`${styles['button']} ${styles['delete-button']}`}>Delete</button> : ''}
-            {isOwner ? <button onClick={openEdit} className={`${styles['button']} ${styles['edit-button']}`}>Edit</button> : ''}
+            {!id ? <button onClick={decrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isDecrementDisabled}>-</button> : ''}
+            <p className={styles['page-counter']}>{parseInt(currentPage) + 1}</p>
             {!id ? <button onClick={incrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isIncrementDisabled}>+</button> : ''}
+            {isOwner ? <button onClick={openEdit} className={`${styles['button']} ${styles['edit-button']}`}>Edit</button> : ''}
         </div>
     )
 }
