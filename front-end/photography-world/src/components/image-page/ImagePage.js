@@ -171,6 +171,17 @@ export function ImagePage() {
 
         setImage(images[parseInt(currentPage) + 1].url)
         setDescription(images[parseInt(currentPage) + 1].description)
+        
+        likeServices.getPictureLikes(id || images[parseInt(currentPage) + 1].imageId)
+            .then(data => {
+                if (user.user && data.some(x => x.userId === user.user.id)) {
+                    setIsLiked(true)
+                } else {
+                    setIsLiked(false)
+                }
+
+                setLikesCount(data.length)
+            })
     }
 
     const decrementPage = () => {
@@ -191,11 +202,22 @@ export function ImagePage() {
 
         setImage(images[parseInt(currentPage) - 1].url)
         setDescription(images[parseInt(currentPage) - 1].description)
+
+        likeServices.getPictureLikes(id || images[parseInt(currentPage) - 1].imageId)
+            .then(data => {
+                if (user.user && data.some(x => x.userId === user.user.id)) {
+                    setIsLiked(true)
+                } else {
+                    setIsLiked(false)
+                }
+
+                setLikesCount(data.length)
+            })
     }
 
     const likeHandler = () => {
         const likeData = {
-            pictureId: id || images[currentPage].pictureId,
+            pictureId: id || images[currentPage].imageId,
             userId: user.user.id
         }
 
@@ -207,7 +229,7 @@ export function ImagePage() {
 
     const disLikeHandler = () => {
         const likeData = {
-            pictureId: id || images[currentPage].pictureId,
+            pictureId: id || images[currentPage].imageId,
             userId: user.user.id
         }
 
@@ -233,7 +255,7 @@ export function ImagePage() {
                         {user.user && !isOwner && isLiked
                             ? <p onClick={disLikeHandler} className={`${styles['like-button']} ${styles['liked']}`}><FaHeart /></p>
                             : user.user && !isOwner && !isLiked ? <p onClick={likeHandler} className={styles['like-button']}><FaRegHeart /></p>
-                            : !user.user || ''}
+                                : !user.user || ''}
                     </div>
                 </div>
                 <div className={styles['content-container']}>
