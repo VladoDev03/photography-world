@@ -20,3 +20,13 @@ export function orderByDescription(pictures) {
 
     return orderedList
 }
+
+export function orderByLikes(pictures) {
+    const orderedList = [...pictures].sort((a, b) => {
+        return a.likesCount > b.likesCount ? -1
+            : a.likesCount < b.likesCount ? 1
+                : 0
+    })
+
+    return orderedList
+}

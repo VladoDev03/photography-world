@@ -8,7 +8,7 @@ import { UserImagesContext } from '../../contexts/UserImagesContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import styles from './Profile.module.css'
 import * as userService from '../../services/userService'
-import * as pictureOrdering from '../../utils/sorting/pictureOrdering'
+import * as pictureOrdering from '../../utils/sortings/pictureOrdering'
 
 export function Profile() {
     const [isLoading, setIsLoading] = useState(true)
@@ -42,6 +42,9 @@ export function Profile() {
             } else if (orderFromUrl === 'description') {
                 setUserImages(pictureOrdering.orderByDescription(data.pictures))
                 setPaginationIndex(pictureOrdering.orderByDescription(data.pictures))
+            } else if (orderFromUrl === 'likes') {
+                setUserImages(pictureOrdering.orderByLikes(data.pictures))
+                setPaginationIndex(pictureOrdering.orderByLikes(data.pictures))
             }
             setIsLoading(false)
         }).catch(() => navigate('/*'))
@@ -61,6 +64,13 @@ export function Profile() {
         setOrder({ type: 'date' })
     }
 
+    const orderByLikesHandler = () => {
+        const sortedList = pictureOrdering.orderByLikes(userImages)
+        setUserImages(sortedList)
+        setImages(sortedList)
+        setOrder({ type: 'likes' })
+    }
+
     const setPaginationIndex = (userImages) => {
         let paginationImages = []
 
@@ -70,7 +80,8 @@ export function Profile() {
                 description: userImages[i].description,
                 imageId: userImages[i].id,
                 userId: id || user.user.id,
-                timeCreated: userImages[i].timeCreated
+                timeCreated: userImages[i].timeCreated,
+                likes: userImages[i].likesCount
             })
         }
 
@@ -78,6 +89,8 @@ export function Profile() {
             paginationImages = pictureOrdering.orderByDate(paginationImages)
         } else if (order === 'description') {
             paginationImages = pictureOrdering.orderByDescription(paginationImages)
+        } else if (order === 'likes') {
+            paginationImages = pictureOrdering.orderByLikes(paginationImages)
         }
 
         setImages(paginationImages)
@@ -95,6 +108,7 @@ export function Profile() {
                             <h1 className={styles['profile-title']}>{displayUser.username}</h1>
                             <ul className={styles['criteria-list']}>
                                 <li><h3 className={styles['sort-title']}>Order by:</h3></li>
+                                <li><Link onClick={orderByLikesHandler} className={`${styles['criteria']} ${order.type === 'likes' ? styles['active-criteria'] : ''}`} to='?order=likes' replace>Likes</Link></li>
                                 <li><Link onClick={orderByDateHandler} className={`${styles['criteria']} ${order.type === 'date' ? styles['active-criteria'] : ''}`} to='?order=date' replace>Date</Link></li>
                                 <li><Link onClick={orderByDescriptionHandler} className={`${styles['criteria']} ${order.type === 'description' ? styles['active-criteria'] : ''}`} to='?order=description' replace>Description</Link></li>
                             </ul>

@@ -281,7 +281,7 @@ export function ImagePage() {
                 </div> : ''}
             {isOwner ? <button onClick={openConfirmation} className={`${styles['button']} ${styles['delete-button']}`}>Delete</button> : ''}
             {!id ? <button onClick={decrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isDecrementDisabled}>-</button> : ''}
-            <p className={styles['page-counter']}>{parseInt(currentPage) + 1}</p>
+            {!id && <p className={styles['page-counter']}>{parseInt(currentPage) + 1}</p>}
             {!id ? <button onClick={incrementPage} className={`${styles['button']} ${styles['page-button']}`} disabled={isPageButtonActive.isIncrementDisabled}>+</button> : ''}
             {isOwner ? <button onClick={openEdit} className={`${styles['button']} ${styles['edit-button']}`}>Edit</button> : ''}
         </div>
