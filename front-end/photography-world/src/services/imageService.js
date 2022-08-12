@@ -1,21 +1,21 @@
-const getUrl = 'https://localhost:7211/api/pictures'
+const baseUrl = 'https://localhost:7211/api/pictures'
 
 export async function getImages() {
-    const response = await fetch(getUrl)
+    const response = await fetch(baseUrl)
     const result = await response.json();
 
     return result;
 }
 
 export async function getImageById(imageUrl) {
-    const response = await fetch(`${getUrl}/${imageUrl}`)
+    const response = await fetch(`${baseUrl}/${imageUrl}`)
     const result = await response.json();
 
     return result;
 }
 
 export async function uploadImage(imageData) {
-    const response = await fetch(getUrl, {
+    const response = await fetch(baseUrl, {
         method: 'POST',
         body: imageData
     })
@@ -26,7 +26,7 @@ export async function uploadImage(imageData) {
 }
 
 export async function deleteImage(imageId) {
-    const response = await fetch(`${getUrl}/${imageId}`, {
+    const response = await fetch(`${baseUrl}/${imageId}`, {
         method: 'DELETE'
     })
 
@@ -36,7 +36,7 @@ export async function deleteImage(imageId) {
 }
 
 export async function editImage({imageId, description}) {
-    const response = await fetch(`${getUrl}/${imageId}`, {
+    const response = await fetch(`${baseUrl}/${imageId}`, {
         method: 'PUT',
         body: JSON.stringify({description}),
         headers: {

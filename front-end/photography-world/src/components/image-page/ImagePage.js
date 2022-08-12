@@ -8,7 +8,8 @@ import { UserImagesContext } from '../../contexts/UserImagesContext'
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 import styles from './ImagePage.module.css'
-import * as imageServices from '../../services/imageService'
+import * as imageService from '../../services/imageService'
+import * as likeServices from '../../services/likeService'
 import * as dateParser from '../../utils/parsers/dateParser'
 
 export function ImagePage() {
@@ -16,12 +17,14 @@ export function ImagePage() {
     const [description, setDescription] = useState('')
     const [userDetails, setUserDetails] = useState({})
     const [createdOn, setCreatedOn] = useState('')
+    const [currentPage, setCurrentPage] = useState(0)
     const [isAsked, setIsAsked] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isOwner, setIsOwner] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [isOverviewOpen, setIsOverviewOpen] = useState(false)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [isLiked, setIsLiked] = useState(false)
+    const [likesCount, setLikesCount] = useState(0)
     const [isPageButtonActive, setIsPageButtonActive] = useState({ isDecrementDisabled: false, isIncrementDisabled: false })
     const { user } = useContext(AuthContext)
     const { images } = useContext(UserImagesContext)
@@ -39,6 +42,15 @@ export function ImagePage() {
         } else if (parseInt(page) >= images.length) {
             page = images.length - 1
         }
+
+        likeServices.getPictureLikes(id || images[page].imageId)
+            .then(data => {
+                if (user.user && data.some(x => x.userId === user.user.id)) {
+                    setIsLiked(true)
+                }
+
+                setLikesCount(data.length)
+            })
 
         setCurrentPage(page)
 
@@ -64,7 +76,7 @@ export function ImagePage() {
         }
 
         if (id) {
-            imageServices.getImageById(id)
+            imageService.getImageById(id)
                 .then(data => {
                     setImage(data.url)
                     setDescription(data.description)
@@ -79,7 +91,7 @@ export function ImagePage() {
             setOverviewParams({ overview: isOverview }, { replace: true })
         } else if (page) {
             const currentImage = images[page]
-            imageServices.getImageById(currentImage.imageId || currentImage.id)
+            imageService.getImageById(currentImage.imageId || currentImage.id)
                 .then(data => {
                     setImage(data.url)
                     setDescription(data.description)
@@ -115,7 +127,7 @@ export function ImagePage() {
     const deleteHandler = () => {
         setIsLoading(true)
         setIsAsked(false)
-        imageServices.deleteImage(id || getCurrentId()).then(() => {
+        imageService.deleteImage(id || getCurrentId()).then(() => {
             setIsLoading(false)
             navigate('../../profile')
         })
@@ -181,6 +193,30 @@ export function ImagePage() {
         setDescription(images[parseInt(currentPage) - 1].description)
     }
 
+    const likeHandler = () => {
+        const likeData = {
+            pictureId: id || images[currentPage].pictureId,
+            userId: user.user.id
+        }
+
+        likeServices.addLike(likeData)
+            .then(setIsLiked(true))
+
+        setLikesCount(oldState => oldState + 1)
+    }
+
+    const disLikeHandler = () => {
+        const likeData = {
+            pictureId: id || images[currentPage].pictureId,
+            userId: user.user.id
+        }
+
+        likeServices.removeLike(likeData)
+            .then(setIsLiked(false))
+
+        setLikesCount(oldState => oldState - 1)
+    }
+
     return (
         <div className='container'>
             {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id || getCurrentId()} closeHandler={closeHandler} /> : ''}
@@ -193,9 +229,11 @@ export function ImagePage() {
                 <div className={styles['image-block']}>
                     <img className={styles['image']} src={image} onClick={imgClickHandler} />
                     <div className={styles['likes-container']}>
-                        <p className={styles['likes']}>Likes: 10</p>
-                        {isOwner || <p className={`${styles['like-button']} ${styles['liked']}`}><FaHeart /></p>}
-                        {/* <p className={styles['like-button']}><FaRegHeart /></p> */}
+                        <p className={styles['likes']}>Likes: {likesCount}</p>
+                        {user.user && !isOwner && isLiked
+                            ? <p onClick={disLikeHandler} className={`${styles['like-button']} ${styles['liked']}`}><FaHeart /></p>
+                            : user.user && !isOwner && !isLiked ? <p onClick={likeHandler} className={styles['like-button']}><FaRegHeart /></p>
+                            : !user.user || ''}
                     </div>
                 </div>
                 <div className={styles['content-container']}>

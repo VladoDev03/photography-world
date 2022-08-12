@@ -26,7 +26,9 @@ namespace PhotographyWorld.Server.Controllers
         [HttpDelete("likes")]
         public IActionResult RemoveLike([FromBody] Like like)
         {
-            return new JsonResult(likeServices.RemoveLike(like.PictureId, like.UserId));
+            likeServices.RemoveLike(like.PictureId, like.UserId);
+
+            return new JsonResult(new {Message = "Like is removed"});
         }
 
         [HttpPost("likes")]

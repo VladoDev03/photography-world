@@ -7,7 +7,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { UserImagesContext } from '../../contexts/UserImagesContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import styles from './Profile.module.css'
-import * as userServices from '../../services/userServices'
+import * as userService from '../../services/userService'
 import * as pictureOrdering from '../../utils/sorting/pictureOrdering'
 
 export function Profile() {
@@ -34,7 +34,7 @@ export function Profile() {
         } else {
             userId = user.user.id
         }
-        userServices.getUser(userId).then(data => {
+        userService.getUser(userId).then(data => {
             setDisplayUser(data)
             if (orderFromUrl === 'date') {
                 setUserImages(pictureOrdering.orderByDate(data.pictures))
