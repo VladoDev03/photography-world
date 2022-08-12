@@ -17,7 +17,7 @@ export function Profile() {
     const { user } = useContext(AuthContext)
     const { setImages } = useContext(UserImagesContext)
     const { id } = useParams()
-    const [order, setOrder] = useLocalStorage('ordering', { type: 'date' })
+    const [order, setOrder] = useLocalStorage('ordering', { type: 'like' })
     const [orderParams, setOrderParams] = useSearchParams()
     const navigate = useNavigate()
 

@@ -27,7 +27,7 @@ export function ImagePage() {
     const [likesCount, setLikesCount] = useState(0)
     const [isPageButtonActive, setIsPageButtonActive] = useState({ isDecrementDisabled: false, isIncrementDisabled: false })
     const { user } = useContext(AuthContext)
-    const { images } = useContext(UserImagesContext)
+    const { images, setImages } = useContext(UserImagesContext)
     const { id } = useParams()
     const [overviewParams, setOverviewParams] = useSearchParams()
     const navigate = useNavigate()
@@ -226,7 +226,7 @@ export function ImagePage() {
 
     return (
         <div className='container'>
-            {isEditing ? <EditImage setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id || getCurrentId()} closeHandler={closeHandler} /> : ''}
+            {isEditing ? <EditImage images={images} setImages={setImages} setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id || getCurrentId()} closeHandler={closeHandler} /> : ''}
             {isAsked ? <ConfirmDelete deleteHandler={deleteHandler} closeHandler={closeHandler} /> : ''}
             {isLoading ?
                 <div className={styles['center-img']} >

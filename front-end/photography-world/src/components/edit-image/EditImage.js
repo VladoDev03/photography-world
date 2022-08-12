@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './EditImage.module.css'
 import * as imageService from '../../services/imageService'
 
-export function EditImage({imageId, closeHandler, description, setDescription, setIsLoading}) {
+export function EditImage({imageId, closeHandler, description, setDescription, setIsLoading, images, setImages}) {
     const [newDescription, setNewDescription] = useState(description)
 
     const changeHandler = (e) => {
@@ -22,6 +22,16 @@ export function EditImage({imageId, closeHandler, description, setDescription, s
             setDescription(newDescription)
             setIsLoading(false)
         })
+        
+        const newImages = images.map(x => {
+            if (x.imageId === imageId) {
+                x.description = newDescription
+            }
+
+            return x
+        })
+        
+        setImages(newImages)
     }
 
     return (

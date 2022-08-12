@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserImagesContext } from '../../contexts/UserImagesContext'
 import styles from './Image.module.css'
