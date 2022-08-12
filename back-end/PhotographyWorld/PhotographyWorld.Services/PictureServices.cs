@@ -50,7 +50,7 @@ namespace PhotographyWorld.Services
 
         public List<Picture> GetAll()
         {
-            return db.Pictures.ToList();
+            return db.Pictures.Include(x => x.User).ToList();
         }
 
         public List<Picture> GetUserPictures(string userId)
@@ -60,7 +60,7 @@ namespace PhotographyWorld.Services
                 throw new ArgumentNullException("User id cannot be null.");
             }
 
-            return db.Pictures.Where(x => x.UserId == userId).ToList();
+            return db.Pictures.Include(x => x.User).Where(x => x.UserId == userId).ToList();
         }
 
         public Picture GetById(string pictureId)

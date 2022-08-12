@@ -10,12 +10,12 @@ namespace PhotographyWorld.Services.Mappers
 {
     public static class UserModelMapper
     {
-        public static UserViewModel ToViewModel(this User picture)
+        public static UserViewModel ToViewModel(this User user)
         {
             return new UserViewModel()
             {
-                Id = picture.Id,
-                Username = picture.Username
+                Id = user.Id,
+                Username = user.Username
             };
         }
     }

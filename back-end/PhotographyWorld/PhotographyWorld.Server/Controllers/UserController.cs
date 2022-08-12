@@ -12,13 +12,16 @@ namespace PhotographyWorld.Server.Controllers
     {
         private readonly IUserServices userServices;
         private readonly IPictureServices pictureServices;
+        private readonly ILikeService likeService;
 
         public UserController(
             IUserServices userServices,
-            IPictureServices pictureServices)
+            IPictureServices pictureServices,
+            ILikeService likeService)
         {
             this.userServices = userServices;
             this.pictureServices = pictureServices;
+            this.likeService = likeService;
         }
 
         [HttpGet("users/{userId}")]
@@ -31,7 +34,14 @@ namespace PhotographyWorld.Server.Controllers
             {
                 Username = user.Username,
                 Id = user.Id,
-                Pictures = userPictures.Select(x => x.ToViewModel()).ToList()
+                Pictures = userPictures
+                    .Select(x =>
+                    {
+                        PictureViewModel viewModel = x.ToViewModel();
+                        viewModel.LikesCount = likeService.PictureLikes(viewModel.Id).Count;
+
+                        return viewModel;
+                    }).ToList()
             };
 
             return new JsonResult(result);

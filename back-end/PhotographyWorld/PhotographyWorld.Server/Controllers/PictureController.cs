@@ -13,13 +13,16 @@ namespace PhotographyWorld.Server.Controllers
     public class PictureController : ControllerBase
     {
         private readonly IPictureServices pictureServices;
+        private readonly ILikeService likeService;
         private readonly ICloudinaryServices cloudinaryServices;
 
         public PictureController(
             IPictureServices pictureServices,
+            ILikeService likeService,
             ICloudinaryServices cloudinaryServices)
         {
             this.pictureServices = pictureServices;
+            this.likeService = likeService;
             this.cloudinaryServices = cloudinaryServices;
         }
 
@@ -115,7 +118,17 @@ namespace PhotographyWorld.Server.Controllers
                 return BadRequest(new { Message = "Invalid id." });
             }
 
-            return new JsonResult(pictureServices.GetUserPictures(userId));
+            List<PictureViewModel> result = pictureServices
+                .GetUserPictures(userId)
+                .Select(x =>
+                {
+                    PictureViewModel viewModel = x.ToViewModel();
+                    viewModel.LikesCount = likeService.PictureLikes(viewModel.Id).Count;
+
+                    return viewModel;
+                }).ToList();
+
+            return new JsonResult(result);
         }
     }
 }
