@@ -75,36 +75,29 @@ export function ImagePage() {
             setIsOverviewOpen(true)
         }
 
+        let requestId
+        const currentImage = images[page]
+
         if (id) {
-            imageService.getImageById(id)
-                .then(data => {
-                    setImage(data.url)
-                    setDescription(data.description)
-                    setUserDetails({ userId: data.user.id, username: data.user.username })
-                    setCreatedOn(data.timeCreated)
-                    if (user.user) {
-                        setIsOwner(data.user.id === user.user.id)
-                    } else {
-                        setIsOwner(false)
-                    }
-                })
+            requestId = id
             setOverviewParams({ overview: isOverview }, { replace: true })
         } else if (page) {
-            const currentImage = images[page]
-            imageService.getImageById(currentImage.imageId || currentImage.id)
-                .then(data => {
-                    setImage(data.url)
-                    setDescription(data.description)
-                    setUserDetails({ userId: data.user.id, username: data.user.username })
-                    setCreatedOn(data.timeCreated)
-                    if (user.user) {
-                        setIsOwner(data.user.id === user.user.id)
-                    } else {
-                        setIsOwner(false)
-                    }
-                })
+            requestId = currentImage.imageId || currentImage.id
             setOverviewParams({ overview: isOverview, page: page }, { replace: true })
         }
+
+        imageService.getImageById(requestId)
+            .then(data => {
+                setImage(data.url)
+                setDescription(data.description)
+                setUserDetails({ userId: data.user.id, username: data.user.username })
+                setCreatedOn(data.timeCreated)
+                if (user.user) {
+                    setIsOwner(data.user.id === user.user.id)
+                } else {
+                    setIsOwner(false)
+                }
+            })
     }, [])
 
     const getCurrentId = () => {
@@ -127,6 +120,7 @@ export function ImagePage() {
     const deleteHandler = () => {
         setIsLoading(true)
         setIsAsked(false)
+
         imageService.deleteImage(id || getCurrentId()).then(() => {
             setIsLoading(false)
             navigate('../../profile')
@@ -153,6 +147,25 @@ export function ImagePage() {
         }
     }
 
+    const changePage = (newPage) => {
+        setCurrentPage(newPage)
+        setOverviewParams({ overview: isOverviewOpen, page: newPage }, { replace: true })
+
+        setImage(images[newPage].url)
+        setDescription(images[newPage].description)
+
+        likeServices.getPictureLikes(id || images[newPage].imageId)
+            .then(data => {
+                if (user.user && data.some(x => x.userId === user.user.id)) {
+                    setIsLiked(true)
+                } else {
+                    setIsLiked(false)
+                }
+
+                setLikesCount(data.length)
+            })
+    }
+
     const incrementPage = () => {
         if (parseInt(currentPage) + 1 === images.length - 1) {
             setIsPageButtonActive({
@@ -166,22 +179,8 @@ export function ImagePage() {
             })
         }
 
-        setCurrentPage(oldState => parseInt(oldState) + 1)
-        setOverviewParams({ overview: isOverviewOpen, page: parseInt(currentPage) + 1 }, { replace: true })
-
-        setImage(images[parseInt(currentPage) + 1].url)
-        setDescription(images[parseInt(currentPage) + 1].description)
-        
-        likeServices.getPictureLikes(id || images[parseInt(currentPage) + 1].imageId)
-            .then(data => {
-                if (user.user && data.some(x => x.userId === user.user.id)) {
-                    setIsLiked(true)
-                } else {
-                    setIsLiked(false)
-                }
-
-                setLikesCount(data.length)
-            })
+        const newPage = parseInt(currentPage) + 1
+        changePage(newPage)
     }
 
     const decrementPage = () => {
@@ -197,22 +196,8 @@ export function ImagePage() {
             })
         }
 
-        setCurrentPage(oldState => oldState - 1)
-        setOverviewParams({ overview: isOverviewOpen, page: currentPage - 1 }, { replace: true })
-
-        setImage(images[parseInt(currentPage) - 1].url)
-        setDescription(images[parseInt(currentPage) - 1].description)
-
-        likeServices.getPictureLikes(id || images[parseInt(currentPage) - 1].imageId)
-            .then(data => {
-                if (user.user && data.some(x => x.userId === user.user.id)) {
-                    setIsLiked(true)
-                } else {
-                    setIsLiked(false)
-                }
-
-                setLikesCount(data.length)
-            })
+        const newPage = parseInt(currentPage) - 1
+        changePage(newPage)
     }
 
     const likeHandler = () => {

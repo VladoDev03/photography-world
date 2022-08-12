@@ -37,14 +37,17 @@ export function Profile() {
         userService.getUser(userId).then(data => {
             setDisplayUser(data)
             if (orderFromUrl === 'date') {
-                setUserImages(pictureOrdering.orderByDate(data.pictures))
-                setPaginationIndex(pictureOrdering.orderByDate(data.pictures))
+                const orderedList = pictureOrdering.orderByDate(data.pictures)
+                setUserImages(orderedList)
+                setPaginationIndex(orderedList)
             } else if (orderFromUrl === 'description') {
-                setUserImages(pictureOrdering.orderByDescription(data.pictures))
-                setPaginationIndex(pictureOrdering.orderByDescription(data.pictures))
+                const orderedList = pictureOrdering.orderByDescription(data.pictures)
+                setUserImages(orderedList)
+                setPaginationIndex(orderedList)
             } else if (orderFromUrl === 'likes') {
-                setUserImages(pictureOrdering.orderByLikes(data.pictures))
-                setPaginationIndex(pictureOrdering.orderByLikes(data.pictures))
+                const orderedList = pictureOrdering.orderByLikes(data.pictures)
+                setUserImages(orderedList)
+                setPaginationIndex(orderedList)
             }
             setIsLoading(false)
         }).catch(() => navigate('/*'))
@@ -52,23 +55,25 @@ export function Profile() {
 
     const orderByDescriptionHandler = () => {
         const sortedList = pictureOrdering.orderByDescription(userImages)
-        setUserImages(sortedList)
-        setImages(sortedList)
+        orderByHandler(sortedList)
         setOrder({ type: 'description' })
     }
 
     const orderByDateHandler = () => {
         const sortedList = pictureOrdering.orderByDate(userImages)
-        setUserImages(sortedList)
-        setImages(sortedList)
+        orderByHandler(sortedList)
         setOrder({ type: 'date' })
     }
 
     const orderByLikesHandler = () => {
         const sortedList = pictureOrdering.orderByLikes(userImages)
+        orderByHandler(sortedList)
+        setOrder({ type: 'likes' })
+    }
+
+    const orderByHandler = (sortedList) => {
         setUserImages(sortedList)
         setImages(sortedList)
-        setOrder({ type: 'likes' })
     }
 
     const setPaginationIndex = (userImages) => {

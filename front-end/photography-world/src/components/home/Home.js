@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { Gallery } from "../gallery/Gallery";
 import { Image } from '../image/Image';
 import { LoadingSpinner } from '../loading-spinner/LoadingSpinner'
-import * as imageService from '../../services/imageService'
 import styles from './Home.module.css'
+import * as imageService from '../../services/imageService'
 
 export function Home() {
     const [images, setImages] = useState([])
