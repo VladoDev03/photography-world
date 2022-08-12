@@ -7,6 +7,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { UserImagesContext } from '../../contexts/UserImagesContext'
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
+import { FaShare } from 'react-icons/fa';
 import styles from './ImagePage.module.css'
 import * as imageService from '../../services/imageService'
 import * as likeServices from '../../services/likeService'
@@ -224,6 +225,10 @@ export function ImagePage() {
         setLikesCount(oldState => oldState - 1)
     }
 
+    const shareHandler = () => {
+        navigator.clipboard.writeText(`http://localhost:3000/image/${id || images[currentPage].imageId}`);
+    }
+
     return (
         <div className='container'>
             {isEditing ? <EditImage images={images} setImages={setImages} setIsLoading={setIsLoading} setDescription={setDescription} description={description} imageId={id || getCurrentId()} closeHandler={closeHandler} /> : ''}
@@ -236,6 +241,7 @@ export function ImagePage() {
                 <div className={styles['image-block']}>
                     <img className={styles['image']} src={image} onClick={imgClickHandler} />
                     <div className={styles['likes-container']}>
+                        <p onClick={shareHandler} className={styles['share']}><FaShare /></p>
                         <p className={styles['likes']}>Likes: {likesCount}</p>
                         {user.user && !isOwner && isLiked
                             ? <p onClick={disLikeHandler} className={`${styles['like-button']} ${styles['liked']}`}><FaHeart /></p>

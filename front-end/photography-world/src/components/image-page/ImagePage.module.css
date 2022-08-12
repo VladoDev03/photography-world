@@ -136,6 +136,13 @@
     color: darkcyan;
 }
 
+.share {
+    font-size: 35px;
+    margin-left: 5px;
+    font-weight: bold;
+    color: cornflowerblue;
+}
+
 .like-button {
     font-size: 35px;
     color: maroon;
