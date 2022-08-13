@@ -1,4 +1,4 @@
-const baseUrl = 'https://localhost:7211/api/users'
+const baseUrl = 'https://photography-world.herokuapp.com/api/users'
 
 export async function getUser(userId) {
     const response = await fetch(`${baseUrl}/${userId}`)

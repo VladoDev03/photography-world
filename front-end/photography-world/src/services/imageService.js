@@ -1,4 +1,4 @@
-const baseUrl = 'https://localhost:7211/api/pictures'
+const baseUrl = 'https://photography-world.herokuapp.com/api/pictures'
 
 export async function getImages() {
     const response = await fetch(baseUrl)

@@ -1,4 +1,4 @@
-const baseUrl = 'https://localhost:7211/api/likes'
+const baseUrl = 'https://photography-world.herokuapp.com/api/likes'
 
 export async function getPictureLikes(pictureId) {
     const response = await fetch(`${baseUrl}/${pictureId}`)
