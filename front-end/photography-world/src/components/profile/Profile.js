@@ -80,13 +80,16 @@ export function Profile() {
         let paginationImages = []
 
         for (let i = 0; i < userImages.length; i++) {
+            const img = userImages[i]
+
             paginationImages.push({
-                url: userImages[i].url,
-                description: userImages[i].description,
-                imageId: userImages[i].id,
+                url: img.url,
+                description: img.description,
+                imageId: img.id,
                 userId: id || user.user.id,
-                timeCreated: userImages[i].timeCreated,
-                likes: userImages[i].likesCount
+                timeCreated: img.timeCreated,
+                likes: img.likesCount,
+                downloadUrl: img.downloadUrl
             })
         }
 

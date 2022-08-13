@@ -8,6 +8,8 @@ import { UserImagesContext } from '../../contexts/UserImagesContext'
 import { FaHeart } from 'react-icons/fa';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaShare } from 'react-icons/fa';
+import { FaSave } from 'react-icons/fa';
+import { FaDownload } from 'react-icons/fa';
 import styles from './ImagePage.module.css'
 import * as imageService from '../../services/imageService'
 import * as likeServices from '../../services/likeService'
@@ -18,6 +20,7 @@ export function ImagePage() {
     const [description, setDescription] = useState('')
     const [userDetails, setUserDetails] = useState({})
     const [createdOn, setCreatedOn] = useState('')
+    const [downloadUrl, setDownloadUrl] = useState('')
     const [currentPage, setCurrentPage] = useState(0)
     const [isAsked, setIsAsked] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
@@ -25,6 +28,7 @@ export function ImagePage() {
     const [isLoading, setIsLoading] = useState(false)
     const [isOverviewOpen, setIsOverviewOpen] = useState(false)
     const [isLiked, setIsLiked] = useState(false)
+    const [isCopied, setIsCopied] = useState(false)
     const [likesCount, setLikesCount] = useState(0)
     const [isPageButtonActive, setIsPageButtonActive] = useState({ isDecrementDisabled: false, isIncrementDisabled: false })
     const { user } = useContext(AuthContext)
@@ -93,6 +97,7 @@ export function ImagePage() {
                 setDescription(data.description)
                 setUserDetails({ userId: data.user.id, username: data.user.username })
                 setCreatedOn(data.timeCreated)
+                setDownloadUrl(data.downloadUrl)
                 if (user.user) {
                     setIsOwner(data.user.id === user.user.id)
                 } else {
@@ -226,6 +231,7 @@ export function ImagePage() {
     }
 
     const shareHandler = () => {
+        setIsCopied(true)
         navigator.clipboard.writeText(`http://localhost:3000/image/${id || images[currentPage].imageId}`);
     }
 
@@ -241,12 +247,13 @@ export function ImagePage() {
                 <div className={styles['image-block']}>
                     <img className={styles['image']} src={image} onClick={imgClickHandler} />
                     <div className={styles['likes-container']}>
-                        <p onClick={shareHandler} className={styles['share']}><FaShare /></p>
                         <p className={styles['likes']}>Likes: {likesCount}</p>
                         {user.user && !isOwner && isLiked
                             ? <p onClick={disLikeHandler} className={`${styles['like-button']} ${styles['liked']}`}><FaHeart /></p>
                             : user.user && !isOwner && !isLiked ? <p onClick={likeHandler} className={styles['like-button']}><FaRegHeart /></p>
                                 : !user.user || ''}
+                        <p onClick={shareHandler} className={`${styles['icon-buttons']} ${!isCopied ? styles['share'] : styles['disabled-share']}`}>{isCopied ? <FaSave /> : <FaShare />}</p>
+                        {!user.user || <p className={`${styles['icon-buttons']} ${styles['download']}`}><a href={downloadUrl}><FaDownload /></a></p>}
                     </div>
                 </div>
                 <div className={styles['content-container']}>

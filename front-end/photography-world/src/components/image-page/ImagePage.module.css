@@ -136,16 +136,30 @@
     color: darkcyan;
 }
 
-.share {
+.icon-buttons {
     font-size: 35px;
     margin-left: 5px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.share {
     color: cornflowerblue;
+}
+
+.disabled-share {
+    color: gray;
+    cursor: default;
+}
+
+.download a {
+    color: darkseagreen;
 }
 
 .like-button {
     font-size: 35px;
     color: maroon;
+    cursor: pointer;
 }
 
 .liked {

@@ -16,6 +16,8 @@ namespace PhotographyWorld.Data.ViewModels
 
         public int LikesCount { get; set; }
 
+        public string DownloadUrl { get; set; }
+
         public DateTime TimeCreated { get; set; }
 
         public UserViewModel User { get; set; }
