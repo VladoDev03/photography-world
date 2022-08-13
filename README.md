@@ -40,4 +40,4 @@
 ### Cloudinary - [https://cloudinary.com](https://cloudinary.com)
 ### Firebase - [https://firebase.google.com](https://firebase.google.com)
 ### Heroku - [https://id.heroku.com](https://id.heroku.com)
-### Only older version deployed. Current version coming soon.
+### Available to try at - https://photography-world-81449.web.app
