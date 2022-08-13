@@ -24,17 +24,20 @@
 ### Heroku for server deployment
 ### PostgreSql for deployment database
 ## `how to run`
-### SERVER:
+### `set up server`
 ### 1. Open the .NET project in Visual Studio.
-### 3. Select the Data project.
-### 2. Run Update-Database command in the Package Manager Console.
-### Hold Ctrl + F5 to run
-### CLIENT
-### 1. Open the ReactJs project in Visual Studio Code and run npm i in the terminal.
-### 2. Run npm start.
+### 2. Select the Data project.
+### 3. Run Update-Database command in the Package Manager Console.
+### 4. Hold Ctrl + F5 to run
+### `set up client`
+### 1. Open the ReactJs project in Visual Studio Code.
+### 2. Open the terminal and run npm i
+### 3. Run npm start.
+### `after set up`
+### First run the server, then run the client
 ## `Links`
-### Heroku - [https://id.heroku.com](https://id.heroku.com)
+### GitHub - [https://github.com/VladoDev03/photography-world](https://github.com/VladoDev03/photography-world)
 ### Cloudinary - [https://cloudinary.com](https://cloudinary.com)
 ### Firebase - [https://firebase.google.com](https://firebase.google.com)
-### GitHub - [https://github.com/VladoDev03/photography-world](https://github.com/VladoDev03/photography-world)
+### Heroku - [https://id.heroku.com](https://id.heroku.com)
 ### Only older version deployed. Current version coming soon.
