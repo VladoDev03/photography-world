@@ -86,13 +86,14 @@ export function ImagePage() {
         if (id) {
             requestId = id
             setOverviewParams({ overview: isOverview }, { replace: true })
-        } else if (page) {
+        } else if (page || page === 0) {
             requestId = currentImage.imageId || currentImage.id
             setOverviewParams({ overview: isOverview, page: page }, { replace: true })
         }
 
         imageService.getImageById(requestId)
             .then(data => {
+                console.log(data)
                 setImage(data.url)
                 setDescription(data.description)
                 setUserDetails({ userId: data.user.id, username: data.user.username })
@@ -103,7 +104,7 @@ export function ImagePage() {
                 } else {
                     setIsOwner(false)
                 }
-            })
+            }).catch(() => navigate('/*'))
     }, [])
 
     const getCurrentId = () => {
