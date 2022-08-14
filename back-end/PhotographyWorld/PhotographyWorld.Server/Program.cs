@@ -54,7 +54,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy
-                            .AllowAnyOrigin()
+                            .WithOrigins("https://photography-world-81449.web.app")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                       });
