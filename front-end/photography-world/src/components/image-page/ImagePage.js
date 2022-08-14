@@ -232,7 +232,7 @@ export function ImagePage() {
 
     const shareHandler = () => {
         setIsCopied(true)
-        navigator.clipboard.writeText(`http://localhost:3000/image/${id || images[currentPage].imageId}`);
+        navigator.clipboard.writeText(`http://photography-world-81449.web.app/image/${id || images[currentPage].imageId}`);
     }
 
     return (
